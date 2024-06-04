@@ -7,28 +7,54 @@
 \usepackage{hyperref} % For hyperlinks
 
 % Title
-\title{Lab Report}
-\author{Your Name}
+\title{%
+  Let's Beat Geometry Dash \\
+  \large APS350 Project Proposal
+  }
+\author{JV, IL, SH, JD}
 \date{\today}
 
 \begin{document}
 
 \maketitle
 
-\section{Introduction}
+\pagebreak
+\section{Introduction (4 marks)}
 % Your introduction here
 
-\section{Methods}
+\section{Background and Related Work (4 marks)}
 % Your methods here
 
-\section{Results}
+\section{Data Processing (2 marks)}
+% Your methods here
+
+\section{Architecture (2 marks)}
 % Your results here
 
-\section{Discussion}
+\section{Baseline Model (2 marks)}
 % Your discussion here
 
-\section{Conclusion}
+\section{Ethical Considerations (2 marks)}
+Geometry Dash has online levels that users can play to earn rewards such as diamonds, orbs, and stars. These stars can be used to rank the player on the global leaderboard. Developing a bot that can complete geometry dash with machine learning can result in players gaining an unfair advantage over their peers, and result in people playing the game in a way the developers did not intend.
+
+Another ethical consideration could be in the training of the models. It is unethical to use the work of others for profit without their permission. Levels that are created and published by Geometry Dash users online are their own creative works, and it may be unethical to use their work to train a model that can be used to generate an income without their consent. As a result, our group does not intend to commercialize this project.
+
+
+\section{Project Plan (4 marks)}
 % Your conclusion here
+
+\section{Risk Registrar (4 marks)}
+A potential risk of this project could be that our code only works on one machine, as the course instructor made it clear that the TA grading our project should be able to run our code. We intend to make the bot able to play geometry dash, which could require that our bot access the keyboard on its host computer, which could involve different libraries and processes for different machines and operating systems. Although we could try to mitigate this as much as possible by testing on various computers and making sure it works on all of our different machines, time constraints may disallow us from solving this issue in time. If we are unable to guarantee that it can run on any machine, we may have to preface our final submission with a warning that it only runs on a certain operating system. 
+
+Another potential risk is that our bot could take too long to train. Especially if we are trying to use geometry dash itself, if we are unable to find the right mods to speed up the run time of each level so that our model can learn faster, we may have a hard time finishing the project in time. One potential solution to this could be to hard code some of the features we believe the model would find useful ourselves, as opposed to letting the machine find out about it. Although this could decrease the performance of the model, it will ensure we can finish the project on time. 
+
+Another potential risk is that one of our team members is unable to finish the project due to an outside situation. Fortunately, we have clearly outlined the responsibilities and tasks of each teammate, so if a teammate is unable to complete their tasks on time, it will be a lot easier for the other teammates to recognize what still needs to be done.
+
+Lastly, there is a risk that our group leaves things to the last minute, resulting in too little time to properly train the model, and embark on the iterative process of trial and failure that marks all succesfull projects. To combat this tendency, we have decided as a team to implement many internal deadlines so that our model will have plenty of time to train.
+
+
+\section{Github Link (1 Mark)}
+https://github.com/J-Vadakken/APS360-Project
 
 % References
 \begin{thebibliography}{9}
