@@ -1,9 +1,23 @@
-\begin{thebibliography}{2}
+\begin{thebibliography}{5}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Chang et~al.(2019)Chang, Chien, Chiang, Wang, and
+  Hsu]{Robot+Object+Avoidance+Method}
+Nai-Hsiang Chang, Yi-Hsing Chien, Hsin-Han Chiang, Wei-Yen Wang, and Chen-Chien
+  Hsu.
+\newblock A robot obstacle avoidance method using merged cnn framework.
+\newblock In \emph{2019 International Conference on Machine Learning and
+  Cybernetics (ICMLC)}, pp.\  1--5, 2019.
+\newblock \doi{10.1109/ICMLC48188.2019.8949168}.
+
+\bibitem[CodeNoodles(2022)]{AI+Learns+to+Play+GD}
+CodeNoodles.
+\newblock Ai learns to play geometry dash || final, Oct 2022.
+\newblock URL \url{https://www.youtube.com/watch?v=A3JJsjZLRSok}.
 
 \bibitem["Fandom"(2024)]{GD+edge_of_destiny}
 "Fandom".
@@ -14,5 +28,10 @@
 razing717.
 \newblock Geometry dash - cycles all coins, Jan 2015.
 \newblock URL \url{https://www.youtube.com/watch?v=WRd4-TWnEtk}.
+
+\bibitem[Yosh(2023)]{Trackmania+AI}
+Yosh.
+\newblock Training an unbeatable ai in trackmania, Sept 2023.
+\newblock URL \url{https://www.youtube.com/watch?v=Dw3BZ6O_8LY}.
 
 \end{thebibliography}

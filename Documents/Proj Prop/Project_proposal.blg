@@ -5,44 +5,44 @@ Reallocating 'name_of_file' (item size: 1) to 11 items.
 Reallocating 'name_of_file' (item size: 1) to 20 items.
 The style file: iclr2022_conference.bst
 Database file #1: APS360_ref.bib
-You've used 2 entries,
+You've used 5 entries,
             2773 wiz_defined-function locations,
-            608 strings with 5132 characters,
-and the built_in function-call counts, 629 in all, are:
-= -- 52
-> -- 20
-< -- 2
-+ -- 8
-- -- 6
-* -- 34
-:= -- 100
-add.period$ -- 6
-call.type$ -- 2
-change.case$ -- 8
-chr.to.int$ -- 2
-cite$ -- 4
-duplicate$ -- 30
-empty$ -- 65
-format.name$ -- 8
-if$ -- 129
+            630 strings with 5719 characters,
+and the built_in function-call counts, 1877 in all, are:
+= -- 158
+> -- 88
+< -- 5
++ -- 32
+- -- 27
+* -- 123
+:= -- 287
+add.period$ -- 16
+call.type$ -- 5
+change.case$ -- 24
+chr.to.int$ -- 5
+cite$ -- 10
+duplicate$ -- 89
+empty$ -- 177
+format.name$ -- 32
+if$ -- 399
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 0
-newline$ -- 18
-num.names$ -- 8
-pop$ -- 24
+missing$ -- 1
+newline$ -- 34
+num.names$ -- 20
+pop$ -- 66
 preamble$ -- 1
-purify$ -- 6
+purify$ -- 19
 quote$ -- 0
-skip$ -- 28
+skip$ -- 78
 stack$ -- 0
-substring$ -- 4
-swap$ -- 3
-text.length$ -- 0
+substring$ -- 22
+swap$ -- 14
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 22
+type$ -- 55
 warning$ -- 0
-while$ -- 6
+while$ -- 17
 width$ -- 0
-write$ -- 31
+write$ -- 70

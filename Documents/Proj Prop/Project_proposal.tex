@@ -125,10 +125,62 @@ Note the intricate details that make it harder to see the hazards.
 \label{fig:edge_of_destiny}
 \end{figure}
 
-We believe that a deep-learning approach can enable a computer to tackle both these issues through object recognition and avoidance of fake objects and routes.
+We believe that a deep-learning approach can enable a computer 
+to tackle both these issues through object recognition and avoidance 
+of fake objects and routes.
 
 \section{Background and Related Work (4 marks)}
-% Your methods here
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Figs/CodeNoodlesScreenshot.png}
+\end{center}
+\caption{A screenshot of CodeNoodle's visualization of his neural network
+from his Youtube video. 
+\citep{AI+Learns+to+Play+GD}}
+\label{fig:Code_Noodles}
+\end{figure}
+
+\cite{AI+Learns+to+Play+GD} created a relatively simple 
+Neural Network to play Geometry Dash that takes in 
+some information (ie. intersection with  “orb” objects, 
+distance to blocks, overhead blocks) and outputs an action.
+See Fig \ref{fig:Code_Noodles}.
+However, we believe 
+that this solution is inadequate as it runs on a simplified 
+version of Geometry Dash instead of the official game. The 
+distance and position of the obstacles are readily available 
+information to the model, which would not be the case in the 
+real version. Furthermore, the simplistic neural network 
+essentially functions as a decision tree, which could fail 
+in some cases to the aforementioned misleading objects.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Figs/Trackmania_AI_neural_network.png}
+\end{center}
+\caption{A screenshot of Yosh's visualization of his neural network
+for his trackmania bot. 
+\citep{Trackmania+AI}}
+\label{fig:Trackmania_AI}
+\end{figure}
+
+\cite{Trackmania+AI} created a Youtube video that demonstrated that an AI 
+can come to understand complex in-game physics systems and surpass
+human-level performance through training. See Fig \ref{fig:Trackmania_AI}.
+Trackmania shares a similar overarching gameplay system to Geometry Dash in 
+which a player must 
+consider various environmental features (ie. track shape, player 
+position) in order to decide when and when not to activate various 
+inputs. Thus, we believe this video helps demonstrate the potential 
+for Deep Learning to work in geometry dash.
+
+\cite{Robot+Object+Avoidance+Method} wrote a paper detailing how 
+they split up an image for a robot into a bunch of different segments. 
+This might be relevant for us as we could split up the images we attain
+from Geometry Dash into an array of squares, and try to sample at a
+specific framerate.
+
 
 \section{Data Processing (2 marks)}
 % Your methods here
