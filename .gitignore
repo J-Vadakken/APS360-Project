@@ -35,3 +35,5 @@ TestResults.xml
 **/*.cb
 **/*.cb2
 **/*.lb
+**/*.bak
+**/*.gz
