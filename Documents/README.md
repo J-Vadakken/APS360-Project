@@ -8,4 +8,6 @@ add in all the information into APS360 in a relvant format.
 You will be then be free to use this source for citation 
 in any of the tex files.
 
-I've made sure to add in 
+I've made sure to add in the extra files that latex generates
+into the git ignore, so don't worry about that too much, unless
+you notice some mistake.
