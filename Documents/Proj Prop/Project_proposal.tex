@@ -1,0 +1,219 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{iclr2022_conference,times}
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+%######## APS360: Uncomment your submission name
+\newcommand{\apsname}{Project Proposal}
+%\newcommand{\apsname}{Progress Report}
+%\newcommand{\apsname}{Final Report}
+
+%######## APS360: Put your Group Number here
+\newcommand{\gpnumber}{35}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{graphicx}
+
+%######## APS360: Put your project Title here
+\title{Let's Beat Geometry Dash  \\ 
+APS360 Project Proposal}
+
+
+%######## APS360: Put your names, student IDs and Emails here
+\author{Joel Vadakken  \\
+Student\# 10010089798\\
+\texttt{j.vadakken@mail.utoronto.ca} \\
+\And
+Author Two  \\
+Student\# 1005678901 \\
+\texttt{author2@mail.utoronto.ca} \\
+\AND
+Author Three  \\
+Student\# 1005678901 \\
+\texttt{author3@mail.utoronto.ca} \\
+\And
+Author Four \\
+Student\# 1005678901 \\
+\texttt{author4@mail.utoronto.ca} \\
+\AND
+}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\iclrfinalcopy 
+%######## APS360: Document starts here
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+Our team's project proposal is to create a bot that can play 
+geometry dash using machine learning. The bot will be trained
+with two architectures, a convoluted neural network so that it
+can identify obstacles in the game, and with deep reinforcement
+learning so that the bot can learn to make the right choices.
+%######## APS360: Do not change the next line. This shows your Main body page count.
+----Total Pages: \pageref{last_page}
+\end{abstract}
+
+
+
+\section{Introduction}
+
+Geometry Dash is a popular platformer video game 
+where the player attempts to navigate through 
+obstacles in order to reach the end of a level. 
+The game features a variety of game modes and 
+unique objects.
+
+A video of the first level can be seen here:
+\href{https://www.youtube.com/watch?v=bbVEbqU9wPo}{https://www.youtube.com/watch?v=bbVEbqU9wPo} 
+
+The player is controlled by one input which 
+determines whether or not the player jumps. 
+Our aim is to build an agent that can beat many 
+of the game’s levels. This will involve training 
+two models. We aim to analyze screen information 
+using a CNN architecture to find the positions 
+of structures and hazards, then use a deep 
+learning reinforcement architecture to determine 
+agent behavior.
+
+Our project was inspired by similar work in other
+games such as Mario. However, most other games 
+simply require you to jump over basic obstacles,
+and the proper decisions for progress are usually 
+straightforward. Geometry Dash is unique and 
+interesting because many levels feature “fakes” 
+where jumping objects can trick the player into death.
+See Fig. \ref{fig:cycles_false_jump_img} for an example. 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Figs/GeoDash_Cycles_False_jump.png}
+\end{center}
+\caption{A screenshot from the 9th level “Cycles”. 
+Normally, interacting with the yellow orbs allows the
+players to jump higher and avoid obstacles. In this case, 
+however, interacting with any of the yellow orbs will result 
+in the player losing. \citep{GD+cycles+screenshot}}
+\label{fig:cycles_false_jump_img}
+\end{figure}
+
+Furthermore, many community-made levels often feature 
+intricate designs that may confuse computer systems, as 
+can be seen in Fig. \ref{fig:edge_of_destiny} for example.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Figs/GeoDash_Level_ex.png}
+\end{center}
+\caption{A screenshot from the custom level “Edge of Destiny.” 
+Note the intricate details that make it harder to see the hazards. 
+\citep{GD+edge_of_destiny}}
+\label{fig:edge_of_destiny}
+\end{figure}
+
+We believe that a deep-learning approach can enable a computer to tackle both these issues through object recognition and avoidance of fake objects and routes.
+
+\section{Background and Related Work (4 marks)}
+% Your methods here
+
+\section{Data Processing (2 marks)}
+% Your methods here
+
+\section{Architecture (2 marks)}
+% Your results here
+
+\section{Baseline Model (2 marks)}
+% Your discussion here
+
+\section{Ethical Considerations (2 marks)}
+Geometry Dash has online levels that users can play to earn rewards 
+such as diamonds, orbs, and stars. These stars can be used to rank 
+the player on the global leaderboard. Developing a bot that can complete 
+Geometry Dash with machine learning can result in players gaining an 
+unfair advantage over their peers as they climb the leaderboard, and 
+result in people playing the game in a way the developers did not intend.
+
+Another ethical consideration could be in the training of the models. 
+It is unethical to use the work of others for profit without their 
+permission. Levels that are created and published by Geometry Dash 
+users online are their own creative works, and it may be unethical to 
+use their work to train a model that can be used to generate an income 
+without their consent. As a result, our group does not intend to 
+commercialize this project.
+
+
+\section{Project Plan (4 marks)}
+% Your conclusion here
+
+\section{Risk Registrar (4 marks)}
+The largest potential risk of this project is that we are unable to 
+finish. We would like to train a bot that can complete Geometry Dash, 
+but this would require that we finish training both the CNN model and 
+the RL model in time. If we are unable to finish both, our group would 
+just submit the CNN model for our final submission, as the CNN model 
+would fulfill the requirements of this project, while the RL model is 
+beyond the scope of this course. Although an RL model would be nice, 
+we may have to sacrifice it if time does not permit. 
+
+There is also a risk that our group will not even finish the CNN model 
+in time. There is a risk that our group will leave deliverables to the 
+last minute, resulting in too little time to properly train our model 
+and embark on the iterative process of trial and failure that marks all
+successful projects. To combat this tendency, we have decided as a team 
+to implement many internal deadlines so that our model will have plenty 
+of time to train.
+
+Another potential risk of this project could be that our code only works
+on one machine, as the course instructor made it clear that the TA grading
+our project should be able to run our code. We intend to make the bot 
+able to play Geometry Dash, which could require that our bot access the 
+keyboard on its host computer, which could involve different libraries 
+and processes for different machines and operating systems. Although 
+we could try to mitigate this as much as possible by testing on various 
+computers and making sure it works on all of our different machines, time
+constraints may disallow us from solving this issue in time. If we are 
+unable to guarantee that it can run on any machine, we may have to preface 
+our final submission with a warning that it only runs on a certain 
+operating system. As of right now, our team plans to develop our model 
+for Geometry Dash on Linux. 
+
+Lastly, there is the risk that one of our team members is unable to finish
+their portion of the project due to an outside situation. Fortunately, 
+we have clearly outlined the responsibilities and tasks of each teammate, 
+so if a teammate is unable to complete their tasks on time, it will be 
+easy for the other teammates to recognize what still needs to be done.
+
+
+\section{Github Link (1 Mark)}
+https://github.com/J-Vadakken/APS360-Project
+
+
+
+\subsubsection*{Author Contributions}
+If you'd like to, you may include  a section for author contributions as is done
+in many journals. This is optional and at the discretion of the authors.
+
+\subsubsection*{Acknowledgments}
+Use unnumbered third level headings for the acknowledgments. All
+acknowledgments, including those to funding agencies, go at the end of the paper.
+
+\label{last_page}
+
+\bibliography{APS360_ref}
+\bibliographystyle{iclr2022_conference}
+
+\end{document}
