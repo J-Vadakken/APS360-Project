@@ -181,6 +181,37 @@ This might be relevant for us as we could split up the images we attain
 from Geometry Dash into an array of squares, and try to sample at a
 specific framerate.
 
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{Figs/Deepmind_atari.png}
+\end{center}
+\caption{Screenshots from 5 Atari 2600 games: 
+(Left-to-right) Pong, Breakout, Space Invaders, Seaquest, Beam Rider
+\citep{Trackmania+AI}}
+\label{fig:Deep_mind_Atari_AI}
+\end{figure}
+
+The first trial of applying deep reinforcement learning to train a
+video game agent originates from a paper written by
+\cite{Playing+Atari+with+Deep+Reinforcement+Learning} at 
+DeepMind. They created a program that could play Atari games using
+deep reinforcement learning. See Fig. \ref{fig:Deep_mind_Atari_AI}
+This paper demonstrates that a convolutional neural network can 
+overcome the long training process of reinforcement learning to 
+learn successful control policies from raw video data in complex 
+RL environments. The network is trained with a variant of the 
+Q-learning algorithm, with stochastic gradient descent to update 
+the weights. And the game agent surpassed an expert human player 
+in every game they implemented.
+
+\cite{DeepMind+Sima} at Deepmind created a model, called SIMA, 
+that can take visual observations from a game to carry out an 
+instruction by outputting keyboard events. Since we are 
+attempting to do something similar in Geometry Dash, it is 
+worthwhile to look into their paper. Although the carrying 
+out instructions part is not as important, it will be worthwhile
+to look into how they analyzed the visual observations from the 
+game.
 
 \section{Data Processing (2 marks)}
 % Your methods here

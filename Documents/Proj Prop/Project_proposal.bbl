@@ -1,4 +1,4 @@
-\begin{thebibliography}{5}
+\begin{thebibliography}{7}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -24,10 +24,25 @@ CodeNoodles.
 \newblock "edge of destiny", 2024.
 \newblock URL \url{https://geometry-dash-fan.fandom.com/wiki/Edge_of_Destiny}.
 
+\bibitem[Mnih et~al.(2013)Mnih, Kavukcuoglu, Silver, Graves, Antonoglou,
+  Wierstra, and Riedmiller]{Playing+Atari+with+Deep+Reinforcement+Learning}
+Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis
+  Antonoglou, Daan Wierstra, and Martin Riedmiller.
+\newblock Playing atari with deep reinforcement learning.
+\newblock 2013.
+\newblock URL \url{https://arxiv.org/pdf/1312.5602}.
+
 \bibitem[razing717(2015)]{GD+cycles+screenshot}
 razing717.
 \newblock Geometry dash - cycles all coins, Jan 2015.
 \newblock URL \url{https://www.youtube.com/watch?v=WRd4-TWnEtk}.
+
+\bibitem[{The SIMA Team}(2024)]{DeepMind+Sima}
+{The SIMA Team}.
+\newblock A generalist ai agent for 3d virtual environments.
+\newblock 2024.
+\newblock URL
+  \url{https://deepmind.google/discover/blog/sima-generalist-ai-agent-for-3d-virtual-environments/}.
 
 \bibitem[Yosh(2023)]{Trackmania+AI}
 Yosh.
