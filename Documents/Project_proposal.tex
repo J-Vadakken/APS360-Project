@@ -29,13 +29,13 @@ Skyler Han  \\
 Student\# 1009794830 \\
 \texttt{hs.han@mail.utoronto.ca} \\
 \AND
-Author Three  \\
-Student\# 1005678901 \\
-\texttt{author3@mail.utoronto.ca} \\
+Ian Lu  \\
+Student\# 1009972139 \\
+\texttt{i.lu@mail.utoronto.ca} \\
 \And
-Author Four \\
-Student\# 1005678901 \\
-\texttt{author4@mail.utoronto.ca} \\
+Jaden Dai \\
+Student\# 1009972228 \\
+\texttt{jaden.dai@mail.utoronto.ca} \\
 \AND
 }
 
@@ -183,6 +183,27 @@ specific framerate.
 
 \begin{figure}[!h]
 \begin{center}
+\includegraphics[width=1.0\textwidth]{Figs/Q_Learn_Game.png}
+\end{center}
+\caption{Video game with optimal path shown (left) vs Deep Q Agent Heat Map 
+(right). \citep{General+Video+Game+AI:+Learning+from+Screen+Capture}}
+\label{fig:Q_Learn_game}
+\end{figure}
+
+This paper explicitly uses a combination of CNN and Q-learning network to 
+train an AI that can play a variety of games. They utilize CNNs to perform 
+feature extraction and determine the best course of action, while the Q-
+learning component aims to improve decision-making capabilities. They also 
+utilize various pre-processing methods (resizing, etc.). Their work 
+culminated in an agent that could effectively traverse some 2D environments.
+	
+This paper showcases how a combination of CNN and Q-learning can enable an 
+agent to plan a path through a level, which is fairly similar to what we are 
+attempting to achieve. Their techniques may be a useful reference for our own 
+project.
+
+\begin{figure}[!h]
+\begin{center}
 \includegraphics[width=1.0\textwidth]{Figs/Deepmind_atari.png}
 \end{center}
 \caption{Screenshots from 5 Atari 2600 games: 
@@ -239,9 +260,9 @@ terrain object in Geometry Dash. Ex:
 \item 0 for air (nothing)
 \item 1 for a platform
 \item -1 for a spike
-\item some set of integers for portals
-\item some set of integers for orbs
-\item some set of integers for pads
+\item Some set of integers for portals
+\item Some set of integers for orbs
+\item Some set of integers for pads
 \item Other integers for other game elements
 \end{itemize}
 The RL model will use the CNN model as it trains in its environment. The tensor 
@@ -445,7 +466,7 @@ easy for the other teammates to recognize what still needs to be done.
 
 
 \section{Github Link (1 Mark)}
-https://github.com/J-Vadakken/APS360-Project
+\href{https://github.com/J-Vadakken/APS360-Project}{https://github.com/J-Vadakken/APS360-Project}
 
 
 
