@@ -1,5 +1,8 @@
 \documentclass{article} % For LaTeX2e
 \usepackage{iclr2022_conference,times}
+\usepackage[utf8]{inputenc}
+\usepackage{array}
+
 % Optional math commands from https://github.com/goodfeli/dlbook_notation.
 \input{math_commands.tex}
 
@@ -91,10 +94,9 @@ learning reinforcement architecture to determine
 agent behavior.
 
 Our project was inspired by similar work in other
-games such as Mario. However, most other games 
-simply require you to jump over basic obstacles,
-and the proper decisions for progress are usually 
-straightforward. Geometry Dash is unique and 
+games such as Mario. However, most other games simply 
+require you to jump over basic obstacles and do not require 
+complex decision making. Geometry Dash is unique and 
 interesting because many levels feature “fakes” 
 where jumping objects can trick the player into death.
 See Fig. \ref{fig:cycles_false_jump_img} for an example. 
@@ -131,6 +133,30 @@ of fake objects and routes.
 
 \section{Background and Related Work (4 marks)}
 
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{Figs/Deepmind_atari.png}
+\end{center}
+\caption{Screenshots from 5 Atari 2600 games: 
+(Left-to-right) Pong, Breakout, Space Invaders, Seaquest, Beam Rider
+\citep{Playing+Atari+with+Deep+Reinforcement+Learning}}
+\label{fig:Deep_mind_Atari_AI}
+\end{figure}
+
+The first trial of applying deep reinforcement learning to train a
+video game agent originates from a paper written by
+\cite{Playing+Atari+with+Deep+Reinforcement+Learning} at 
+DeepMind. They created a program that could play Atari games using
+deep reinforcement learning. See Fig. \ref{fig:Deep_mind_Atari_AI}
+This paper demonstrates that a convolutional neural network can 
+overcome the long training process of reinforcement learning to 
+learn successful control policies from raw video data in complex 
+RL environments. The network is trained with a variant of the 
+Q-learning algorithm, with stochastic gradient descent to update 
+the weights. And the game agent surpassed an expert human player 
+in every game they implemented.
+
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{Figs/CodeNoodlesScreenshot.png}
@@ -165,15 +191,14 @@ for his trackmania bot.
 \label{fig:Trackmania_AI}
 \end{figure}
 
-\cite{Trackmania+AI} created a Youtube video that demonstrated that an AI 
-can come to understand complex in-game physics systems and surpass
-human-level performance through training. See Fig \ref{fig:Trackmania_AI}.
-Trackmania shares a similar overarching gameplay system to Geometry Dash in 
-which a player must 
-consider various environmental features (ie. track shape, player 
-position) in order to decide when and when not to activate various 
-inputs. Thus, we believe this video helps demonstrate the potential 
-for Deep Learning to work in Geometry Dash.
+\cite{Trackmania+AI} created a Youtube video that demonstrates that 
+an AI can come to understand complex in-game physics systems and surpass
+human-level performance through training. Trackmania shares a similar 
+overarching gameplay system to Geometry Dash in which a player considers 
+their environment in order to control their in-game model. Furthermore, both 
+games feature fairly complex physics systems. Since the Trackmania AI was 
+able to master its game’s physics system, we believe that a similar approach 
+applied to Geometry Dash may also give strong performance. See Fig \ref{fig:Trackmania_AI}
 
 \cite{Robot+Object+Avoidance+Method} wrote a paper detailing how 
 they split up an image for a robot into a bunch of different segments. 
@@ -190,49 +215,19 @@ specific framerate.
 \label{fig:Q_Learn_game}
 \end{figure}
 
-This paper explicitly uses a combination of CNN and Q-learning network to 
+\cite{General+Video+Game+AI:+Learning+from+Screen+Capture} wrote a paper that explicitly uses a combination of CNN and Q-learning network to 
 train an AI that can play a variety of games. They utilize CNNs to perform 
 feature extraction and determine the best course of action, while the Q-
 learning component aims to improve decision-making capabilities. They also 
 utilize various pre-processing methods (resizing, etc.). Their work 
-culminated in an agent that could effectively traverse some 2D environments.
-	
-This paper showcases how a combination of CNN and Q-learning can enable an 
+culminated in an agent that could effectively traverse some 2D environments. This paper showcases how a combination of CNN and Q-learning can enable an 
 agent to plan a path through a level, which is fairly similar to what we are 
 attempting to achieve. Their techniques may be a useful reference for our own 
-project.
-
-\begin{figure}[!h]
-\begin{center}
-\includegraphics[width=1.0\textwidth]{Figs/Deepmind_atari.png}
-\end{center}
-\caption{Screenshots from 5 Atari 2600 games: 
-(Left-to-right) Pong, Breakout, Space Invaders, Seaquest, Beam Rider
-\citep{Playing+Atari+with+Deep+Reinforcement+Learning}}
-\label{fig:Deep_mind_Atari_AI}
-\end{figure}
-
-The first trial of applying deep reinforcement learning to train a
-video game agent originates from a paper written by
-\cite{Playing+Atari+with+Deep+Reinforcement+Learning} at 
-DeepMind. They created a program that could play Atari games using
-deep reinforcement learning. See Fig. \ref{fig:Deep_mind_Atari_AI}
-This paper demonstrates that a convolutional neural network can 
-overcome the long training process of reinforcement learning to 
-learn successful control policies from raw video data in complex 
-RL environments. The network is trained with a variant of the 
-Q-learning algorithm, with stochastic gradient descent to update 
-the weights. And the game agent surpassed an expert human player 
-in every game they implemented.
+project. See Fig \ref{fig:Q_Learn_game}.
 
 \cite{DeepMind+Sima} at Deepmind created a model, called SIMA, 
 that can take visual observations from a game to carry out an 
-instruction by outputting keyboard events. Since we are 
-attempting to do something similar in Geometry Dash, it is 
-worthwhile to look into their paper. Although the carrying 
-out instructions part is not as important, it will be worthwhile
-to look into how they analyzed the visual observations from the 
-game.
+instruction by outputting keyboard events. Although their model does not achieve the same end goal as us (following instruction vs autonomous gameplay), their agent’s ability to understand complex visual information and map it to keyboard inputs supports our approach of utilizing screen capture for object detection and behavior planning. Furthermore, the team’s approach to rewarding and punishing agents may serve as a useful reference for our specific game.
 
 \section{Data Processing (2 marks)}
 
@@ -245,7 +240,7 @@ to classify different terrain objects into numerical values in a processed
 tensor that can be passed as an input into the RL model. 
 
 To reduce computational complexity and to preserve the accuracy of the CNN 
-classifier, each frame will be grayscale, and the background and each pixel 
+classifier, the CNN will include a grayscale filter. Each frame will be grayscale, and the background and each pixel 
 will take the value of the mean colour in its associated area such that each 
 pixel will consist of one colour value. 
 
@@ -267,9 +262,8 @@ terrain object in Geometry Dash. Ex:
 \end{itemize}
 The RL model will use the CNN model as it trains in its environment. The tensor 
 size of a singular dataset will consist of the number of frames in that geometry 
-dash level, the number of pixels on a screen per frame (height x width) and the 
-RGB values for each pixel to formulate a tensor of size (number of frames, number 
-of pixels to make up a column, number of pixels to make up a row, 3 RGB values). 
+dash level, the number of pixels on a screen per frame, and their rgb values (number of frames, number 
+of pixels to make up a column, number of pixels to make up a row, rgb values). 
 The RL model will use this data to output a tensor of size 1 that dictates 
 whether 
 the bot should jump or not jump. 
@@ -287,14 +281,14 @@ the bot should jump or not jump.
 \label{fig:CNN_neural_network}
 \end{figure}
 
-We will utilize a CNN to analyze the game screen and find the positions of hazards, platforms, and other interactable objects, such as can be seen in Fig \ref{fig:CNN_neural_network}. A CNN is a type of ANN that retains the geometry of the data and performs convulutions  This will leverage the CNN architecture’s ability to understand complex shapes and patterns, and will enable accurate positional information that can later be used by the RL agent.
+We will utilize a CNN to analyze the game screen and find the positions of hazards, platforms, and other interactable objects, such as can be seen in Fig \ref{fig:CNN_neural_network}. A CNN is a type of ANN that retains the geometry of the data and performs convolutions through a kernel with variable parameters that goes across the input (usually a 2D image). This will leverage the CNN architecture’s ability to understand complex shapes and patterns, and will enable accurate positional information that can later be used by the RL agent.
 
 The CNN will be comprised of a set number of layers and will take in as an
 input one frame from the game screen (640x480x3 Tensor), and output 
 640x480 array of integer values representing different object types.
  
 
-\subsection*{Reinforcement Learning Model}
+\subsection{Reinforcement Learning Model}
 
 \begin{figure}[!htbp]
 \begin{center}
@@ -386,7 +380,7 @@ network against. This can be a simple machine learning model (e.g., SVM, Random 
 
 \subsection{Baseline Model for CNN}
 We will compare our CNN model against a hardcoded system 
-that labels the obstacles in the game. Using OpenCV, This system will
+that labels the obstacles in the game. Using OpenCV, this system will
 be able to identify the obstacles in the game and will 
 be able to recognize the player's position. The information 
 will then be fed into the baseline model for RL to make decisions.
@@ -397,9 +391,6 @@ The bot will jump when OpenCV detects an obstacle in the
 game and will not jump when there is no obstacle. The system will 
 be able to play the game, but it will not be able to learn from
 its mistakes or improve its performance over time.
-
-
-
 
 
 % Your discussion here
@@ -423,7 +414,33 @@ commercialize this project.
 
 \section{Project Plan (4 marks)}
 % Your conclusion here
+\subsection*{CNN Tasks}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|m{5cm}|m{3cm}|m{3cm}|m{3cm}|}
+\hline
+\textbf{Task} & \textbf{Principal} & \textbf{Secondary} & \textbf{Internal Deadline} \\ \hline
+Data Collection for CNN & Joel & Jaden & June 22 \\ \hline
+Create and Train CNN Model & Ian & Joel & June 22 and June 30 \\ \hline
+Create a OpenCV Baseline Model & Jaden & Ian & July 12 \\ \hline
+\end{tabular}
+\caption{CNN Tasks}
+\label{table:CNNTasks}
+\end{table}
 
+\subsection*{RL Tasks}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|m{5cm}|m{3cm}|m{3cm}|m{3cm}|}
+\hline
+\textbf{Task} & \textbf{Principal} & \textbf{Secondary} & \textbf{Internal Deadline} \\ \hline
+Setup the RL Environment & Skyler & Jaden & June 30 \\ \hline
+Create a Decision Tree Baseline Model & Jaden, Ian & Joel & July 19 \\ \hline
+Create and Train Deep Q Network & Skyler & Ian, Jaden & July 1 and July 30 \\ \hline
+\end{tabular}
+\caption{RL Tasks}
+\label{table:RLTasks}
+\end{table}
 
 
 \section{Risk Registrar (4 marks)}
@@ -467,16 +484,6 @@ easy for the other teammates to recognize what still needs to be done.
 
 \section{Github Link (1 Mark)}
 \href{https://github.com/J-Vadakken/APS360-Project}{https://github.com/J-Vadakken/APS360-Project}
-
-
-
-\subsubsection*{Author Contributions}
-If you'd like to, you may include  a section for author contributions as is done
-in many journals. This is optional and at the discretion of the authors.
-
-\subsubsection*{Acknowledgments}
-Use unnumbered third level headings for the acknowledgments. All
-acknowledgments, including those to funding agencies, go at the end of the paper.
 
 \label{last_page}
 
