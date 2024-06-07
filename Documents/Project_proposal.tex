@@ -282,6 +282,26 @@ game.
 
 
 \section{Baseline Model (2 marks)}
+Describe a simple, baseline model that you will compare your neural
+network against. This can be a simple machine learning model (e.g., SVM, Random Forests, etc.), a hand-coded heuristic model (that does not use machine learning), or something else. Expectations for the baseline model will vary from project to project.
+
+\subsection{Baseline Model for CNN}
+We will compare our CNN model against a hardcoded system 
+that labels the obstacles in the game. Using OpenCV, This system will
+be able to identify the obstacles in the game and will 
+be able to recognize the player's position. The information 
+will then be fed into the baseline model for RL to make decisions.
+\subsection{Baseline Model for RL}
+We will compare our RL model against a simple decison tree that
+will jump based on the feedback from the baseline CNN model.
+The bot will jump when OpenCV detects an obstacle in the
+game and will not jump when there is no obstacle. The system will 
+be able to play the game, but it will not be able to learn from
+its mistakes or improve its performance over time.
+
+
+
+
 
 % Your discussion here
 
