@@ -99,7 +99,7 @@ interesting because many levels feature “fakes”
 where jumping objects can trick the player into death.
 See Fig. \ref{fig:cycles_false_jump_img} for an example. 
 
-\begin{figure}[h]
+\begin{figure}[!h]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{Figs/GeoDash_Cycles_False_jump.png}
 \end{center}
@@ -115,7 +115,7 @@ Furthermore, many community-made levels often feature
 intricate designs that may confuse computer systems, as 
 can be seen in Fig. \ref{fig:edge_of_destiny} for example.
 
-\begin{figure}[h]
+\begin{figure}[!h]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{Figs/GeoDash_Level_ex.png}
 \end{center}
@@ -131,7 +131,7 @@ of fake objects and routes.
 
 \section{Background and Related Work (4 marks)}
 
-\begin{figure}[h]
+\begin{figure}[!h]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{Figs/CodeNoodlesScreenshot.png}
 \end{center}
@@ -155,7 +155,7 @@ real version. Furthermore, the simplistic neural network
 essentially functions as a decision tree, which could fail 
 in some cases to the aforementioned misleading objects.
 
-\begin{figure}[h]
+\begin{figure}[!h]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{Figs/Trackmania_AI_neural_network.png}
 \end{center}
@@ -181,7 +181,7 @@ This might be relevant for us as we could split up the images we attain
 from Geometry Dash into an array of squares, and try to sample at a
 specific framerate.
 
-\begin{figure}[h]
+\begin{figure}[!h]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{Figs/Deepmind_atari.png}
 \end{center}
@@ -218,8 +218,71 @@ game.
 
 \section{Architecture (2 marks)}
 % Your results here
+\subsection*{Reinforcement Learning Model}
+
+\begin{itemize}
+    \item[\textbf{1.}] \textbf{Environment}
+    \begin{itemize}
+        \item The Geometry Dash game environment needs to be set up so that it can interact with the agent. 
+        \item The environment should provide the current state of the game (e.g., position of the player, obstacles) and allow the agent to perform actions (e.g., jump, no jump).
+        \item We would need to build the environment with OpenAI Gym to train the agent since we would need to interact with the RL modules.
+    \end{itemize}
+
+    \item[\textbf{2.}] \textbf{State Representation}
+    \begin{itemize}
+        \item We can get the state from the feedback from the CNN by knowing where the obstacle is in the frame and the position of the player.
+    \end{itemize}
+
+    \item[\textbf{3.}] \textbf{Action Space}
+    \begin{itemize}
+        \item The action space \( A \) consists of discrete actions the agent can take. 
+        \item In Geometry Dash, this could be simplified to two actions: jump or no jump.
+    \end{itemize}
+
+    \item[\textbf{4.}] \textbf{Replay Memory}
+    \begin{itemize}
+        \item We store the Geometry Dash agent’s experiences at each time-step, \( e_t = (s_t, a_t, r_t, s_{t+1}) \) in a dataset \( D = \{e_1, \ldots, e_N\} \).
+        \item These experiences are pooled over many episodes into a replay memory.
+        \item We apply Q-learning updates to a small batch of the samples randomly chosen from the dataset.
+    \end{itemize}
+
+    \item[\textbf{5.}] \textbf{Reward Function}
+    \begin{itemize}
+        \item Define a reward function that provides positive rewards for progress (e.g., distance covered, points scored) and negative rewards for failures (e.g., hitting an obstacle).
+    \end{itemize}
+
+    \item[\textbf{6.}] \textbf{Training Procedure}
+    \begin{itemize}
+        \item Initialize the replay memory \( D \) to a fixed capacity.
+        \item Initialize the Q-network with random weights.
+        \item For each episode:
+        \begin{itemize}
+            \item Initialize the starting state \( s_1 \).
+            \item For each time-step \( t \):
+            \begin{itemize}
+                \item With probability \( \epsilon \), select a random action \( a_t \). Otherwise, select \( a_t = \arg\max_a Q(s_t, a; \theta) \).
+                \item Execute action \( a_t \) in the game and observe reward \( r_t \) and next state \( s_{t+1} \).
+                \item Store experience \( e_t = (s_t, a_t, r_t, s_{t+1}) \) in replay memory \( D \).
+                \item Sample a random minibatch of experiences \( (s_j, a_j, r_j, s_{j+1}) \) from \( D \).
+                \item Compute the target Q-value:
+                \[
+                y_j = \begin{cases}
+                r_j & \text{if } s_{j+1} \text{ is terminal} \\
+                r_j + \gamma \max_{a'} Q(s_{j+1}, a'; \theta) & \text{otherwise}
+                \end{cases}
+                \]
+                \item Perform a gradient descent step on the loss \( (y_j - Q(s_j, a_j; \theta))^2 \).
+                \item Update the state \( s_t \) to \( s_{t+1} \).
+            \end{itemize}
+            \item Reduce \( \epsilon \) gradually to reduce exploration over time.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+
 
 \section{Baseline Model (2 marks)}
+
 % Your discussion here
 
 \section{Ethical Considerations (2 marks)}
