@@ -24,7 +24,7 @@ res_spike_small = cv2.matchTemplate(img_gray,template_spike_small,cv2.TM_CCOEFF_
 threshold = 0.7
 threshold2 = 0.8
 threshold_player = 0.7
-threshold_spike_small = 0.9
+threshold_spike_small = 0.87
 loc = np.where( res >= threshold)
 loc2 = np.where( res2 >= threshold2)
 loc_player = np.where( res_player >= threshold)
