@@ -3,7 +3,6 @@ import numpy as np
 from matplotlib import pyplot as plt
  
 img_rgb = cv2.imread('../Sample_Data/map.png')
-
 img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
 template = cv2.imread('../Sample_Data/square.png', cv2.IMREAD_GRAYSCALE)
 template2 = cv2.imread('../Sample_Data/spike.png', cv2.IMREAD_GRAYSCALE)
@@ -33,17 +32,17 @@ loc_spike_small = np.where( res_spike_small >= threshold_spike_small)
 
 for pt in zip(*loc2[::-1]):
  
- cv2.rectangle(img_rgb, (pt[0]+int(w2/3),pt[1]+int(h2/4)), (pt[0] + int(2*w2/3), int(pt[1] + 3*h2/4)), (0,255,0), -1)
+    cv2.rectangle(img_rgb, (pt[0]+int(w2/3),pt[1]+int(h2/4)), (pt[0] + int(2*w2/3), int(pt[1] + 3*h2/4)), (0,255,0), -1)
  # fill the rectangle
 
 for pt in zip(*loc[::-1]):
- cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), -1)
+    cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), -1)
 
 for pt in zip(*loc_player[::-1]):
- cv2.rectangle(img_rgb, pt, (pt[0] + w_player, pt[1] + h_player), (255,0,0), -1)
+    cv2.rectangle(img_rgb, pt, (pt[0] + w_player, pt[1] + h_player), (255,0,0), -1)
 
 for pt in zip(*loc_spike_small[::-1]):
- cv2.rectangle(img_rgb, pt, (pt[0] + w_spike_small, pt[1] + h_spike_small), (255,255,0), -1)
+    cv2.rectangle(img_rgb, pt, (pt[0] + w_spike_small, pt[1] + h_spike_small), (255,255,0), -1)
 
 
 
