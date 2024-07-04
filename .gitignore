@@ -39,3 +39,6 @@ TestResults.xml
 **/*.gz
 **/*.bbl
 **/*.blg
+
+# Python files:
+*.pyc
