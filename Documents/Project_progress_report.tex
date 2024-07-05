@@ -71,10 +71,7 @@ We are using transfer learning to achieve this task.
 \section{Brief Project Description}
 
 
-The format for the submissions is a variant of the ICLR 2022 format.
-Please read carefully the instructions below, and follow them
-faithfully. There is a \textbf{9 page} limit for the main text. References do not have any limitation. This is also ICLR's standard length for a paper submission. 
-If your main text goes to page 10, a $-20\%$ penalty would be applied. If your main text goes to page 11, you will not receive any grade for your submission. 
+The goal of our project is to develop a model that takes a screenshot from the game “Geometry Dash” and detects the location of collision boxes automatically. For example, given a live screenshot of the game, it should be able to recognize objects and determine their appropriate collision box:
  
 
 \section{Individual Contributions and Responsibilities}
@@ -83,53 +80,38 @@ If your main text goes to page 10, a $-20\%$ penalty would be applied. If your m
 Our team is working well together. We are using github to share code and the latex document, and google docs to share documents for rough work, brainstorming, rough drafts, and data collection. Please see Table \ref{table:contributions} for the tasks we have completed so far. The remaining work we have includes: collecting more data, creating a test set, trying out different architectures, and hyperparameter tuning.  Please see Table \ref{} for how we have decided to divide up these tasks and their deadlines. Since hyperparameter tuning, trying out different architectures, and creating a testset. 
 
 \begin{table}[h]
-\caption{Individual Contributions}
+\caption{Individual Contributions and Tasks}
 \label{table:contributions}
 \begin{center}
-\begin{tabular}{|p{3cm}|p{6cm}}
+\begin{tabular}{|p{2cm}|p{6cm}|p{6cm}|}
 \hline
-\multicolumn{1}{|c|}{\bf NAME} & \multicolumn{1}{c|}{\bf CONTRIBUTIONS} \\ \hline
-Jaden Dai & Did most of the data collection, including creating macros for Geometry Dash levels, creating texture packs, and creating macros for taking screenshots. \\ \hline
-Joel Vadakken & Helped with the data collection. Wrote the code to preprocess the data before training the model. & Will continue to help with hyperparameter tuning and data collection. \\ \hline
-Skylar Han & Created the Baseline model for comparison. Wrote the training code for the model. & Will continue to look at hyperparameter tuning and improving the baseline model. \\ \hline
-Ian Lu & Created the architecture for the model, and did some hyperparameter tuning. & Will continue to help with hyperparameter tuning. \\ \hline
+\multicolumn{1}{|c|}{\bf NAME} & \multicolumn{1}{c|}{\bf CONTRIBUTIONS} & \multicolumn{1}{c|}{\bf TASKS}\\ \hline
+Jaden Dai & Did most of the data collection, including creating macros for Geometry Dash levels, creating texture packs, and creating macros for taking screenshots. & Testset creation. Hyperparameter tuning.\\ \hline
+Joel Vadakken & Helped with the data collection. Wrote the code to preprocess the data before training the model. & More Data collection. Experiment with different models.\\ \hline
+Skylar Han & Created the Baseline model for comparison. Wrote the training code for the model. & Improve baseline model. Experiment with different model architectures\\ \hline 
+Ian Lu & Created the architecture for the model, and did some hyperparameter tuning. & Hyperparameter tuning. Testset creation. \\ \hline
 \end{tabular}
 \end{center}
 \end{table}
 
-\begin{table}[h]
-\caption{Task Division}
-\label{table:task Division}
-\begin{center}
-\begin{tabular}{|p{3cm}|p{6cm}}
-\hline
-\multicolumn{1}{|c|}{\bf NAME} & \multicolumn{1}{c|}{\bf TASKS} & \multicolumn{1}{c|}{\bf DEADLINES} \\ \hline
-Jaden Dai & More Data collection. Hyperparameter tuning. \\ \hline
-Joel Vadakken & Helped with the data collection. Wrote the code to preprocess the data before training the model. & Will continue to help with hyperparameter tuning and data collection. \\ \hline
-Skylar Han & Created the Baseline model for comparison. Wrote the training code for the model. & Will continue to look at hyperparameter tuning and improving the baseline model. \\ \hline
-Ian Lu & Created the architecture for the model, and did some hyperparameter tuning. & Will continue to help with hyperparameter tuning. \\ \hline
-\end{tabular}
-\end{center}
-\end{table}
 
 \begin{table}[h]
 \caption{Task Deadlines}
 \label{table:task deadlines}
 \begin{center}
-\begin{tabular}{|p{3cm}|p{6cm}}
+\begin{tabular}{|p{3cm}|p{3cm}|p{6cm}|}
 \hline
-\multicolumn{1}{|c|}{\bf NAME} & \multicolumn{1}{c|}{\bf TASKS} & \multicolumn{1}{c|}{\bf DEADLINES} \\ \hline
-Jaden Dai & More Data collection. Hyperparameter tuning. \\ \hline
-Joel Vadakken & Helped with the data collection. Wrote the code to preprocess the data before training the model. & Will continue to help with hyperparameter tuning and data collection. \\ \hline
-Skylar Han & Created the Baseline model for comparison. Wrote the training code for the model. & Will continue to look at hyperparameter tuning and improving the baseline model. \\ \hline
-Ian Lu & Created the architecture for the model, and did some hyperparameter tuning. & Will continue to help with hyperparameter tuning. \\ \hline
+\multicolumn{1}{|c|}{\bf TASK} & \multicolumn{1}{c|}{\bf DEADLINE} & \multicolumn{1}{c|}{\bf JUSTIFICATION}\\ \hline
+Collecting more data & July 13, 2024 & We need most of our data ready to train our models, so it important we have all of our data ready by then. \\ \hline 
+Creating a test set & July 20, 2024 & We won't need to evaluate our model until closer to the submission deadline, so this is not as high priority a task \\ \hline 
+Trying out different architectures & July 20, 2024 & We should be done most of our model training so that we can work on our final submission \\ \hline
+Hyperparameter tuning & July 20, 2024 & Hyperparameter tuning and trying out different architectures should occur simultaneously, as they are linked together. \\ \hline
 \end{tabular}
 \end{center}
 \end{table}
 
 \section{Data Processing}
 \label{headings}
-
 
 \section{Baseline Model}
 
