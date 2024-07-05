@@ -236,6 +236,13 @@ To perform semantic segmentation the primary model will be based upon a large co
 \label{fig:collision_box_issues}
 \end{figure}
 
+During the training process of the model we binary cross entropy with logits as the loss function to evaluate the reconstructed output and the input data across each channel corresponding to a unique class that describes a geometry dash terrain object. 
+
+Currently, the training of our model still has some errors in error and loss calculation due to some complications in the multi channel classifications for semantic segmentation. In addition, the training time of our network is also quite long, taking over 10 minutes to run 5 epochs for the large UNet architecture.
+
+The main challenge we faced in trying to get the model to work was ensuring compatible tensor dimensions with the image size and channel input/outputs due to the multi-channel constraints from semantic segmentation and the large number of convolutions from our Neural Network’s architecture. In the future we plan to incorporate dice loss which is the standard loss metric to characterize semantic segmentation neural networks. 
+
+
 \bibliography{APS360_ref}
 \bibliographystyle{iclr2022_conference}
 
