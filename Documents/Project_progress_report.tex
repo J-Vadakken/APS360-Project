@@ -14,6 +14,8 @@
 \usepackage{hyperref}
 \usepackage{url}
 \usepackage{graphicx}
+\usepackage{float} % Add this line in your preamble
+
 
 %######## APS360: Put your project Title here
 \title{Creating a Player Aid for Geometry Dash  \\ 
@@ -72,6 +74,15 @@ We are using transfer learning to achieve this task.
 
 
 The goal of our project is to develop a model that takes a screenshot from the game “Geometry Dash” and detects the location of collision boxes automatically. For example, given a live screenshot of the game, it should be able to recognize objects and determine their appropriate collision box:
+
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Figs/example_confusing_image.png}
+\end{center}
+\caption{An example of a level where a mechanism might get confused labelling objects.}
+\label{fig:Confusion_example}
+\end{figure}
  
 
 \section{Individual Contributions and Responsibilities}
