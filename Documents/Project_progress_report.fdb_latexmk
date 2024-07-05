@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex Project_progress_report"] 1720153303 "Project_progress_report.aux" "Project_progress_report.bbl" "Project_progress_report" 1720153330 0
+["bibtex Project_progress_report"] 1720153754 "Project_progress_report.aux" "Project_progress_report.bbl" "Project_progress_report" 1720153756 0
   "./APS360_ref.bib" 1720153247 3926 1ad1442e26f23a699486e267734af898 ""
   "./iclr2022_conference.bst" 1717719182 28413 aa1df73f8afb5963eb2fc74f4c7630c1 ""
-  "Project_progress_report.aux" 1720153329 2947 f4cf74f98dc299e79d95f39326046153 "pdflatex"
+  "Project_progress_report.aux" 1720153755 3414 bd06ea907f2148c1a296c5ea2dc3ce7a "pdflatex"
   (generated)
   "Project_progress_report.bbl"
   "Project_progress_report.blg"
   (rewritten before read)
-["pdflatex"] 1720153329 "c:/Users/ironi/OneDrive/Documents/stuff/APS360-Project/Documents/Project_progress_report.tex" "Project_progress_report.pdf" "Project_progress_report" 1720153330 0
+["pdflatex"] 1720153754 "c:/Users/ironi/OneDrive/Documents/stuff/APS360-Project/Documents/Project_progress_report.tex" "Project_progress_report.pdf" "Project_progress_report" 1720153756 0
   "C:/Users/ironi/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1720152082 82507 a9eef8696c92627b87e9975edea03b2a ""
   "C:/Users/ironi/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1699324623 24175184 a795904943919c3e8ae186a975e7885c ""
   "C:/Users/ironi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -106,11 +106,13 @@
   "Figs/collision_box_issues.png" 1720152055 97452 dcc219961d33c3364e5fa88ad423c9ce ""
   "Figs/labels after post processing.png" 1720152055 17921 08a7009fc2a009139254c49d193545a0 ""
   "Figs/sample_data.png" 1720152055 238828 26a14ae828679d1c1fab51cd1eaee7b6 ""
-  "Project_progress_report.aux" 1720153329 2947 f4cf74f98dc299e79d95f39326046153 "pdflatex"
-  "Project_progress_report.bbl" 1720153303 599 a9c4ee29bcdbc2b7057d6309861482e5 "bibtex Project_progress_report"
-  "Project_progress_report.out" 1720153329 799 dc8565a8d06a4a5ad3e1090eab48008f "pdflatex"
-  "Project_progress_report.tex" 1720153328 14172 5a227e192bcea24204e3a7924f0b26dc ""
-  "c:/Users/ironi/OneDrive/Documents/stuff/APS360-Project/Documents/Project_progress_report.tex" 1720153328 14172 5a227e192bcea24204e3a7924f0b26dc ""
+  "Figs/train val error.png" 1720152055 63217 eb75c4f6e6aef39f63ae3e66fa9068b9 ""
+  "Figs/u-net-architecture.png" 1720152055 113537 eeac87a01cc2367c45914b6fedf63e85 ""
+  "Project_progress_report.aux" 1720153755 3414 bd06ea907f2148c1a296c5ea2dc3ce7a "pdflatex"
+  "Project_progress_report.bbl" 1720153754 599 a9c4ee29bcdbc2b7057d6309861482e5 "bibtex Project_progress_report"
+  "Project_progress_report.out" 1720153755 799 dc8565a8d06a4a5ad3e1090eab48008f "pdflatex"
+  "Project_progress_report.tex" 1720153753 14595 5871f9cc52cc3795261ef0221a248935 ""
+  "c:/Users/ironi/OneDrive/Documents/stuff/APS360-Project/Documents/Project_progress_report.tex" 1720153753 14595 5871f9cc52cc3795261ef0221a248935 ""
   "fancyhdr.sty" 1717719182 21006 e5d13d98d57bd53d4fed3aa61bd29c86 ""
   "iclr2022_conference.sty" 1717719182 9412 4f484121d9ee5c46ae7b712b095a6d14 ""
   "math_commands.tex" 1717719182 12792 a71653715108dc62b66e3a0bde0307d8 ""
