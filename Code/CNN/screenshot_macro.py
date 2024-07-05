@@ -29,7 +29,7 @@ screenshot = "t"
  
 #CAPTURE SETTINGS
 initial_frames = 15 #number of frames to skip at the start
-frames_interval = 5 #number of frames between screenshots
+frames_interval = 50 #number of frames between screenshots
 level_length = 85 #level length in seconds, will be used to prevent the macro from running too long
 fps = 30 #frames per second for the game
 
