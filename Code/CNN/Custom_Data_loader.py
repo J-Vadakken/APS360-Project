@@ -3,11 +3,25 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 from PIL import Image
-import cv2
-from config import imshape_, n_classes_, labels_, class_colors_
+from config import n_classes_, class_colors_
 import matplotlib.pyplot as plt
 
 class CustomDataset(Dataset):
+    """
+    Custom dataset class for loading images and annotations together.
+    Creates multi-channel masks for each image annotation..
+        Args:
+        image_paths (list): List of paths to the images.
+        annot_paths (list): List of paths to the annotations.
+        transform (callable, optional): Optional transform to be applied
+            on a sample.
+        Methods:
+        __len__: Returns the length of the dataset.
+        __getitem__: Returns a sample from the dataset at the given index.
+        create_multi_masks: Returns multi-channel masks for the given annotation image.
+        plot_multi_mask: Plots the multi-channel masks, given a mask tensor as an argument.
+    """
+
     def __init__(self, image_paths, annot_paths, transform=None):
         self.image_paths = image_paths
         self.annot_paths = annot_paths
@@ -45,35 +59,58 @@ class CustomDataset(Dataset):
             anot_im = anot_im.numpy()
             # Assuming anot_im is in CHW format, convert it to HWC for processing
             anot_im = anot_im.transpose(1, 2, 0)
-        
+        # Initialize channels
         background_mask = np.ones((anot_im.shape[0], anot_im.shape[1]), dtype=np.float32)
         channels = []
-
-        plt.imshow(anot_im)
-        plt.show()
-        plt.figure(figsize=(10, n_classes_*2.5))
-        i = 1
         for label, color in class_colors_.items():
+            # Find pixels that math the color
             color = np.array(color, dtype=anot_im.dtype)
             tolerance = 1
             mask = np.all(np.abs(anot_im - color) <= tolerance, axis=-1)
+            # Remove background pixels at the same location
             background_mask[mask] = 0
+            # Add mask to channels
             mask = mask.astype(np.float32)
             channels.append(mask)
-            plt.subplot(n_classes_, 2, 2*i-1)
-            plt.imshow(mask, cmap='gray')
-            plt.title(label)
-            plt.subplot(n_classes_, 2, 2*i)
-            plt.imshow(background_mask, cmap='gray')
-            plt.title(color)
-            i+= 1
-        plt.subplots_adjust(hspace=1, wspace=0.5)
-        plt.show()
 
-
+        # Add background mask to channels
         channels.append(background_mask)
+        # Stack all channels to create multi-channel mask
         y = np.stack(channels, axis=0)
         return torch.tensor(y, dtype=torch.float32)
+
+    def plot_multi_mask(masks):
+        plt.figure(figsize=(n_classes_*2.5, 2))
+        i = 1 # Iterable for subplot
+        # To plot a combined color image later
+        combined_color_image = np.zeros((*masks[0].shape, 3), dtype=np.uint8)
+        for label, color in class_colors_.items():
+            # Plot each mask
+            plt.subplot(1, n_classes_ + 1, i)  # Adjust for an extra row for the combined color image
+            plt.imshow(masks[i-1], cmap='gray')
+            plt.title(label)
+            
+            # Update combined color image
+            mask_indices = masks[i-1] > 0
+            combined_color_image[mask_indices] = color
+
+            i += 1
+        
+        # Adjust subplot for the background mask
+        plt.subplot(1, n_classes_ + 1, i)
+        plt.imshow(masks[-1], cmap='gray')
+        plt.title('Background')
+        
+        # Adjust subplot for the combined color image
+        plt.subplot(1, n_classes_ + 1, i+1)
+        plt.imshow(combined_color_image)
+        plt.title('Combined Color Image')
+        
+        # Increase vertical spacing and apply tight layout with padding
+        plt.subplots_adjust(hspace=0.8, wspace=0.5)  # Adjusted hspace for increased spacing
+        plt.tight_layout(pad=3.0)  # Apply tight layout with padding
+        
+        plt.show()
 
 # Test code:
 if __name__ == "__main__":
@@ -85,12 +122,10 @@ if __name__ == "__main__":
 
     dataset = CustomDataset(image_paths=['Code/CNN/Sample_Data/polargeist/polargeist normal/2024 Jul 02 22-08-07241.png'],
                             annot_paths=['Code/CNN/Sample_Data/polargeist/polargeist hitbox/2024 Jul 02 21-44-574.png'],
-                            )
-    #     dataset = CustomDataset(image_paths=['Code/CNN/Sample_Data/polargeist/polargeist hitbox/2024 Jul 02 21-44-574.png'],
-    #                        annot_paths=['Code/CNN/Sample_Data/polargeist/polargeist normal/2024 Jul 02 22-08-07241.png'],
-    #                       transform=transform)
+                            transform=transform)
     a_img = Image.open('Code/CNN/Sample_Data/polargeist/polargeist hitbox/2024 Jul 02 21-44-574.png').convert("RGB")
     to_tensor_transform = transforms.ToTensor()
     a_img = to_tensor_transform(a_img) * 255.0
     f = dataset.create_multi_masks(a_img)
+    CustomDataset.plot_multi_mask(f)
     dataloader = DataLoader(dataset, batch_size=4, shuffle=True)
