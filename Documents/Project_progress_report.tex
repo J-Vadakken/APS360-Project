@@ -1,0 +1,158 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{iclr2022_conference,times}
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+%######## APS360: Uncomment your submission name
+%\newcommand{\apsname}{Project Proposal}
+\newcommand{\apsname}{Progress Report}
+%\newcommand{\apsname}{Final Report}
+
+%######## APS360: Put your Group Number here
+\newcommand{\gpnumber}{35}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{graphicx}
+
+%######## APS360: Put your project Title here
+\title{Creating a Player Aid for Geometry Dash  \\ 
+APS360 Progress Report}
+
+
+%######## APS360: Put your names, student IDs and Emails here
+\author{Jaden Dai \\
+Student\# 1009972228\\
+\texttt{jaden.dai@mail.utoronto.ca} \\
+\And
+Joel Vadakken  \\
+Student\# 10010089798\\
+\texttt{j.vadakken@mail.utoronto.ca} \\
+\And
+Skyler Han  \\
+Student\# 1009794830 \\
+\texttt{hs.han@mail.utoronto.ca} \\
+\AND
+Ian Lu  \\
+Student\# 1009972139 \\
+\texttt{i.lu@mail.utoronto.ca} \\
+\AND
+}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\iclrfinalcopy 
+%######## APS360: Document starts here
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+Our team intends to create a program that can create semantic segmentation
+maps of a Geometry Dash Level using machine learning. This program can be
+used to assist players in recognizing obstacles without the usage of mods.
+We are using transfer learning to achieve this task.
+%######## APS360: Do not change the next line. This shows your Main body page count.
+----Total Pages: \pageref{last_page}
+\end{abstract}
+
+
+
+\section{Brief Project Description}
+
+
+The format for the submissions is a variant of the ICLR 2022 format.
+Please read carefully the instructions below, and follow them
+faithfully. There is a \textbf{9 page} limit for the main text. References do not have any limitation. This is also ICLR's standard length for a paper submission. 
+If your main text goes to page 10, a $-20\%$ penalty would be applied. If your main text goes to page 11, you will not receive any grade for your submission. 
+ 
+
+\section{Individual Contributions and Responsibilities}
+\label{gen_inst}
+
+Our team is working well together. We are using github to share code and the latex document, and google docs to share documents for rough work, brainstorming, rough drafts, and data collection. Please see Table \ref{table:contributions} for the tasks we have completed so far. The remaining work we have includes: collecting more data, creating a test set, trying out different architectures, and hyperparameter tuning.  Please see Table \ref{} for how we have decided to divide up these tasks and their deadlines. Since hyperparameter tuning, trying out different architectures, and creating a testset. 
+
+\begin{table}[h]
+\caption{Individual Contributions}
+\label{table:contributions}
+\begin{center}
+\begin{tabular}{|p{3cm}|p{6cm}}
+\hline
+\multicolumn{1}{|c|}{\bf NAME} & \multicolumn{1}{c|}{\bf CONTRIBUTIONS} \\ \hline
+Jaden Dai & Did most of the data collection, including creating macros for Geometry Dash levels, creating texture packs, and creating macros for taking screenshots. \\ \hline
+Joel Vadakken & Helped with the data collection. Wrote the code to preprocess the data before training the model. & Will continue to help with hyperparameter tuning and data collection. \\ \hline
+Skylar Han & Created the Baseline model for comparison. Wrote the training code for the model. & Will continue to look at hyperparameter tuning and improving the baseline model. \\ \hline
+Ian Lu & Created the architecture for the model, and did some hyperparameter tuning. & Will continue to help with hyperparameter tuning. \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[h]
+\caption{Task Division}
+\label{table:task Division}
+\begin{center}
+\begin{tabular}{|p{3cm}|p{6cm}}
+\hline
+\multicolumn{1}{|c|}{\bf NAME} & \multicolumn{1}{c|}{\bf TASKS} & \multicolumn{1}{c|}{\bf DEADLINES} \\ \hline
+Jaden Dai & More Data collection. Hyperparameter tuning. \\ \hline
+Joel Vadakken & Helped with the data collection. Wrote the code to preprocess the data before training the model. & Will continue to help with hyperparameter tuning and data collection. \\ \hline
+Skylar Han & Created the Baseline model for comparison. Wrote the training code for the model. & Will continue to look at hyperparameter tuning and improving the baseline model. \\ \hline
+Ian Lu & Created the architecture for the model, and did some hyperparameter tuning. & Will continue to help with hyperparameter tuning. \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[h]
+\caption{Task Deadlines}
+\label{table:task deadlines}
+\begin{center}
+\begin{tabular}{|p{3cm}|p{6cm}}
+\hline
+\multicolumn{1}{|c|}{\bf NAME} & \multicolumn{1}{c|}{\bf TASKS} & \multicolumn{1}{c|}{\bf DEADLINES} \\ \hline
+Jaden Dai & More Data collection. Hyperparameter tuning. \\ \hline
+Joel Vadakken & Helped with the data collection. Wrote the code to preprocess the data before training the model. & Will continue to help with hyperparameter tuning and data collection. \\ \hline
+Skylar Han & Created the Baseline model for comparison. Wrote the training code for the model. & Will continue to look at hyperparameter tuning and improving the baseline model. \\ \hline
+Ian Lu & Created the architecture for the model, and did some hyperparameter tuning. & Will continue to help with hyperparameter tuning. \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\section{Data Processing}
+\label{headings}
+
+
+\section{Baseline Model}
+
+In an attempt to encourage standardized notation, we have included the
+notation file from the textbook, \textit{Deep Learning}
+\cite{goodfellow2016deep} available at
+\url{https://github.com/goodfeli/dlbook_notation/}.  Use of this style
+is not required and can be disabled by commenting out
+\texttt{math\_commands.tex}.
+
+
+
+
+\section{Primary Model}
+Do not change any aspects of the formatting parameters in the style files.
+In particular, do not modify the width or length of the rectangle the text
+should fit into, and do not change font sizes (except perhaps in the
+\textsc{References} section; see below). Please note that pages should be
+numbered.
+
+\label{last_page}
+
+\bibliography{APS360_ref}
+\bibliographystyle{iclr2022_conference}
+
+\end{document}
