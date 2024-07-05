@@ -10,7 +10,7 @@ class_colors_ = {'platform':     (000,000,127), # 0
                'player':         (255,255,255), # 2
                'yellow jump orb':(255,255,68), # 3
                'blue jump orb':  (17,255,255), # 4
-               'blue pad':       (07,102,102), # 5
+               'blue pad':       (7,102,102), # 5
                'yellow pad':     (102,102,27), # 6
 #              'background':     (000,000,000)  # 7 # Not needed as it is the default value
 }
