@@ -214,13 +214,27 @@ The model faces challenges in accurately detecting objects in the larger image d
 The function of the primary model is to perform semantic segmentation on Geometry Dash maps, distinguishing and mapping out different terrain objects and returning their collision boxes. Semantic segmentation involves extensive pre-processing of the data to create labels for each unique class as the target masks to then output an image with the same dimensions as the original image where each pixel of the output is assigned a class from an input image. Specifically, the dimension of the output tensor will be in the form of [batch\_size, n\_classes, height, width] such that the final output will be the composition of each mask, determined by the number of classes.
 
 
-In our case, our network will be fed an input image, a processed target image segmented into layers of masks corresponding to the number of classes associated with an object terrain on a geometry dash, then the output of the network will display the input image with each pixel corresponding to the class of a terrain object in geometry dash. 
+In our case, our neural network will be fed an input image, a processed target image segmented into layers of masks corresponding to the number of classes associated with an object terrain on a geometry dash, then the output of the network will display the input image with each pixel corresponding to the class of a terrain object in geometry dash. 
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Figs/u-net-architecture.png}
+\end{center}
+\caption{UNet architecture diagram}
+\label{fig:collision_box_issues}
+\end{figure}
 
 To perform semantic segmentation the primary model will be based upon a large convolutional neural network with an adapted UNet architecture for our image inputs. The UNet architecture is a fully convolutional neural network model with an encoder-decoder structure and skip connections between the coders. It is the standard architecture for image or semantic segmentation The encoder part of the network extracts features of the image increasing in level as the number of feature channels increases down the encoder. The decoder part of the network then performs upsampling and convolutions rather than transposed convolutions along with skip connections from the encoder to pass on spatial information during the restoration of the original image to ultimately arrive at the input dimensions. 
 
-
-
 \label{last_page}
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Figs/train val error.png}
+\end{center}
+\caption{Training and Validation error and losses}
+\label{fig:collision_box_issues}
+\end{figure}
 
 \bibliography{APS360_ref}
 \bibliographystyle{iclr2022_conference}
