@@ -22,55 +22,71 @@ class CustomDataset(Dataset):
         plot_multi_mask: Plots the multi-channel masks, given a mask tensor as an argument.
     """
 
-    def __init__(self, image_paths, annot_paths, batch_size = 32, transform=None):
+    def __init__(self, image_paths, annot_paths, transform=None):
         self.image_paths = image_paths
         self.annot_paths = annot_paths
-        self.batch_size = batch_size
         self.transform = transform
-        self.indexes = np.arange(len(self.image_paths))
 
     def __len__(self):
         return len(self.image_paths)
 
     def __getitem__(self, idx):
-        # Generate indexes of the batch
-        indexes = self.indexes[idx*self.batch_size:(idx+1)*self.batch_size]
+        # # Generate indexes of the batch
+        # indexes = self.indexes[idx*self.batch_size:(idx+1)*self.batch_size]
 
-        image_paths = [self.image_paths[k] for k in indexes]
-        annot_paths = [self.annot_paths[k] for k in indexes]
+        # image_paths = [self.image_paths[k] for k in indexes]
+        # annot_paths = [self.annot_paths[k] for k in indexes]
 
-        X, y = self.__data_generation(image_paths, annot_paths)
+        # X, y = self.__data_generation(image_paths, annot_paths)
 
-        return X, y
-    
-    def __data_generation(self, image_paths, annot_paths):
-        
-        X = np.empty((self.batch_size, imshape_[0], imshape_[1], imshape_[2]), dtype=np.float32)
-        Y = np.empty((self.batch_size, n_classes_, imshape_[1], imshape_[2]),  dtype=np.float32)
-        
-        for i, (im_path, annot_path) in enumerate(zip(image_paths, annot_paths)):
-            # Load image and annotation
-            image = Image.open(im_path).convert("RGB")
-            annot_image = Image.open(annot_path).convert("RGB")
+        # return X, y
+        # Load image and annotation
+        image = Image.open(self.image_paths[idx]).convert("RGB")
+        annot_image = Image.open(self.annot_paths[idx]).convert("RGB")
 
-            # Apply transformations (Ensure no image augmentation is applied to the annotation image)
+        # Apply transformations (Ensure no image augmentation is applied to the annotation image)
+        if self.transform:
+            image = self.transform(image)
+            annot_image = self.transform(annot_image)
+        else:
             to_tensor_transform = transforms.ToTensor()
-            if self.transform:
-                image = self.transform(image)
-                annot_image = self.transform(annot_image)
-            else:
-                image = to_tensor_transform(image)
-                annot_image = to_tensor_transform(annot_image)
+            image = to_tensor_transform(image)
+            annot_image = to_tensor_transform(annot_image)
 
-            # Generate masks
-            annot_image = annot_image * 255.0
-            mask = self.create_multi_masks(annot_image)
+        # Generate masks
+        annot_image = annot_image * 255.0
+        mask = self.create_multi_masks(annot_image)
 
-            # Add to the batch
-            X[i,] = image
-            Y[i,] = mask
+        return image, mask
+    
+    # def __data_generation(self, image_paths, annot_paths):
+        
+    #     X = np.empty((self.batch_size, imshape_[0], imshape_[1], imshape_[2]), dtype=np.float32)
+    #     Y = np.empty((self.batch_size, n_classes_, imshape_[1], imshape_[2]),  dtype=np.float32)
+        
+    #     for i, (im_path, annot_path) in enumerate(zip(image_paths, annot_paths)):
+    #         # Load image and annotation
+    #         image = Image.open(im_path).convert("RGB")
+    #         annot_image = Image.open(annot_path).convert("RGB")
 
-        return X, Y
+    #         # Apply transformations (Ensure no image augmentation is applied to the annotation image)
+    #         to_tensor_transform = transforms.ToTensor()
+    #         if self.transform:
+    #             image = self.transform(image)
+    #             annot_image = self.transform(annot_image)
+    #         else:
+    #             image = to_tensor_transform(image)
+    #             annot_image = to_tensor_transform(annot_image)
+
+    #         # Generate masks
+    #         annot_image = annot_image * 255.0
+    #         mask = self.create_multi_masks(annot_image)
+
+    #         # Add to the batch
+    #         X[i,] = image
+    #         Y[i,] = mask
+
+    #     return X, Y
 
     def create_multi_masks(self, anot_im):
         # Convert anot_im to numpy if it's a tensor
