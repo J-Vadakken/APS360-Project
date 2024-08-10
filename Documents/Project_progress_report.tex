@@ -201,13 +201,26 @@ Our baseline model is a template matching model. It uses the OpenCV library to m
 
 Our model does this for template images, including such as spikes, portals, players, and small spikes. The model saves the resulting image with the rectangles drawn around the objects, then takes the difference between the original image and the image with rectangles, then saves the difference image. The model provides a qualitative result by showing the original map image, the resulting image with the rectangles drawn around the objects, and the difference image. 
 
+\begin{figure}[!h]
+    \begin{center}
+    \includegraphics[width=0.6\textwidth]{Figs/hardcode_labels.png}
+    \end{center}
+    \caption{}
+    \label{fig:hardcode_labels}
+    \end{figure}    
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=1\textwidth]{Figs/hardcode_difference_output.png}
+\end{center}
+\caption{The template matching model in action: recognizing objects and labeling them with red before taking the difference.}
+\label{fig:hardcode_labels_difference}
+\end{figure}
+    
+
 The model also provides a quantitative accuracy, which is calculated by the correct number of classifications divided by the total number of objects in the scene. After tuning confidence thresholds and using different feature matching functions provided by OpenCV, the model achieves an accuracy of 0.83 on the selected samples. However, the accuracy is significantly worse once the image has a different resolution or the objects are placed in a different orientation. Moreover, compared with the ground truth data, the baseline model sometimes misclassifies small objects such as small spikes, which leads to a lower accuracy compared to the actual model.
 
 The model faces challenges in accurately detecting objects in the larger image due to variations in lighting, color, scale, rotation, and occlusion in the game. For example, the model would not be able to detect a spike if it's placed upside down. The model also faces challenges in accurately matching the template image to the larger image due to noise and artifacts in the images. It can be improved by using more sophisticated computer vision techniques, such as feature matching, object detection, and image segmentation with neural networks, which is what we did in the actual model.
-
-
-
-
 
 
 \section{Primary Model}
@@ -221,7 +234,7 @@ In our case, our neural network will be fed an input image, a processed target i
 \includegraphics[width=0.8\textwidth]{Figs/u-net-architecture.png}
 \end{center}
 \caption{UNet architecture diagram}
-\label{fig:collision_box_issues}
+\label{fig:u_net_arch}
 \end{figure}
 
 To perform semantic segmentation the primary model will be based upon a large convolutional neural network with an adapted UNet architecture for our input images \cite{ronneberger2015unetconvolutionalnetworksbiomedical}. The UNet architecture is a fully convolutional neural network model with an encoder-decoder structure and skip connections between the coders. It is the standard architecture for image or semantic segmentation The encoder part of the network extracts features of the image increasing in level as the number of feature channels increases down the encoder. The decoder part of the network then performs upsampling and convolutions rather than transposed convolutions along with skip connections from the encoder to pass on spatial information during the restoration of the original image to ultimately arrive at the input dimensions. 
@@ -233,7 +246,7 @@ To perform semantic segmentation the primary model will be based upon a large co
 \includegraphics[width=0.8\textwidth]{Figs/train val error.png}
 \end{center}
 \caption{Training and Validation error and losses}
-\label{fig:collision_box_issues}
+\label{fig:train_val_error}
 \end{figure}
 
 During the training process of the model we binary cross entropy with logits as the loss function to evaluate the reconstructed output and the input data across each channel corresponding to a unique class that describes a geometry dash terrain object. 
