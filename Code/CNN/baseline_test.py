@@ -11,7 +11,7 @@ from torch.utils.data import DataLoader, random_split, Dataset
 from PIL import Image
 
 # Define the number of classes and initialize the output tensor dimensions
-n_classes = 9
+n_classes = 10
 height = 120
 width = 160
 bs = 32
@@ -103,4 +103,4 @@ accuracy = 1 - (total_diff_pixels / total_pixels)
 print(f'Overall accuracy: {accuracy * 100:.2f}%')
 
 # Optional: Visualize the result for one of the layers (e.g., platform layer)
-cv2.imwrite('platform_layer.png', output_tensor[0] * 255)
+cv2.imwrite('platform_layer.png', output_tensor[1] * 255)
