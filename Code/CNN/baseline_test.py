@@ -13,31 +13,52 @@ from PIL import Image
 
 # Define the number of classes and initialize the output tensor dimensions
 n_classes = 10
-height = 120
-width = 160
+height = 270
+width = 480
 bs = 32
-
-# Load multiple templates for each class
+# Load and resize multiple templates for each class to 3/4 of their original size
 templates = {
-    '0': [cv2.imread(f'baseline_model/Objects/0/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(11)],
-    '1': [cv2.imread(f'baseline_model/Objects/1/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(11)],
+    '0': [cv2.resize(cv2.imread(f'baseline_model/Objects/0/{i}.png', cv2.IMREAD_GRAYSCALE), 
+                     (int(cv2.imread(f'baseline_model/Objects/0/{i}.png', cv2.IMREAD_GRAYSCALE).shape[1] * 3 / 4), 
+                      int(cv2.imread(f'baseline_model/Objects/0/{i}.png', cv2.IMREAD_GRAYSCALE).shape[0] * 3 / 4))) for i in range(11)],
+    '1': [cv2.resize(cv2.imread(f'baseline_model/Objects/1/{i}.png', cv2.IMREAD_GRAYSCALE), 
+                     (int(cv2.imread(f'baseline_model/Objects/1/{i}.png', cv2.IMREAD_GRAYSCALE).shape[1] * 3 / 4), 
+                      int(cv2.imread(f'baseline_model/Objects/1/{i}.png', cv2.IMREAD_GRAYSCALE).shape[0] * 3 / 4))) for i in range(11)],
     '2': [cv2.imread(f'baseline_model/Objects/2/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 4)],
-    '3': [cv2.imread(f'baseline_model/Objects/3/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 2)],
-    '4': [cv2.imread(f'baseline_model/Objects/4/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(3, 4)],
-    '5': [cv2.imread(f'baseline_model/Objects/5/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(6, 7)],
-    '6': [cv2.imread(f'baseline_model/Objects/6/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(4, 5)],
-    '7': [cv2.imread(f'baseline_model/Objects/7/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(2, 3)],
-    '8': [cv2.imread(f'baseline_model/Objects/8/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(5, 6)],
-    '9': [cv2.imread(f'baseline_model/Objects/9/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 6)],
+    '3': [cv2.resize(cv2.imread(f'baseline_model/Objects/3/{i}.png', cv2.IMREAD_GRAYSCALE), 
+                     (int(cv2.imread(f'baseline_model/Objects/3/{i}.png', cv2.IMREAD_GRAYSCALE).shape[1] * 3 / 4), 
+                      int(cv2.imread(f'baseline_model/Objects/3/{i}.png', cv2.IMREAD_GRAYSCALE).shape[0] * 3 / 4))) for i in range(1, 2)],
+    '4': [cv2.resize(cv2.imread(f'baseline_model/Objects/4/{i}.png', cv2.IMREAD_GRAYSCALE), 
+                     (int(cv2.imread(f'baseline_model/Objects/4/{i}.png', cv2.IMREAD_GRAYSCALE).shape[1] * 3 / 4), 
+                      int(cv2.imread(f'baseline_model/Objects/4/{i}.png', cv2.IMREAD_GRAYSCALE).shape[0] * 3 / 4))) for i in range(3, 4)],
+    '5': [cv2.resize(cv2.imread(f'baseline_model/Objects/5/{i}.png', cv2.IMREAD_GRAYSCALE), 
+                     (int(cv2.imread(f'baseline_model/Objects/5/{i}.png', cv2.IMREAD_GRAYSCALE).shape[1] * 3 / 4), 
+                      int(cv2.imread(f'baseline_model/Objects/5/{i}.png', cv2.IMREAD_GRAYSCALE).shape[0] * 3 / 4))) for i in range(6, 7)],
+    '6': [cv2.resize(cv2.imread(f'baseline_model/Objects/6/{i}.png', cv2.IMREAD_GRAYSCALE), 
+                     (int(cv2.imread(f'baseline_model/Objects/6/{i}.png', cv2.IMREAD_GRAYSCALE).shape[1] * 3 / 4), 
+                      int(cv2.imread(f'baseline_model/Objects/6/{i}.png', cv2.IMREAD_GRAYSCALE).shape[0] * 3 / 4))) for i in range(4, 5)],
+    '7': [cv2.resize(cv2.imread(f'baseline_model/Objects/7/{i}.png', cv2.IMREAD_GRAYSCALE), 
+                     (int(cv2.imread(f'baseline_model/Objects/7/{i}.png', cv2.IMREAD_GRAYSCALE).shape[1] * 3 / 4), 
+                      int(cv2.imread(f'baseline_model/Objects/7/{i}.png', cv2.IMREAD_GRAYSCALE).shape[0] * 3 / 4))) for i in range(2, 3)],
+    '8': [cv2.resize(cv2.imread(f'baseline_model/Objects/8/{i}.png', cv2.IMREAD_GRAYSCALE), 
+                     (int(cv2.imread(f'baseline_model/Objects/8/{i}.png', cv2.IMREAD_GRAYSCALE).shape[1] * 3 / 4), 
+                      int(cv2.imread(f'baseline_model/Objects/8/{i}.png', cv2.IMREAD_GRAYSCALE).shape[0] * 3 / 4))) for i in range(5, 6)],
+    '9': [cv2.resize(cv2.imread(f'baseline_model/Objects/9/{i}.png', cv2.IMREAD_GRAYSCALE), 
+                     (int(cv2.imread(f'baseline_model/Objects/9/{i}.png', cv2.IMREAD_GRAYSCALE).shape[1] * 3 / 4), 
+                      int(cv2.imread(f'baseline_model/Objects/9/{i}.png', cv2.IMREAD_GRAYSCALE).shape[0] * 3 / 4))) for i in range(1, 6)],
 }
+
+# Example check of the resized template's shape
 print(templates['0'][0].shape)
+
+
 
 # Define a uniform threshold for all classes
 thresholds = [0.7] * n_classes
 
 # Define the transformations
 transform = transforms.Compose([
-    transforms.Resize((120, 160)),
+    transforms.Resize((270, 480)),
     transforms.ToTensor(),
 ])
 
@@ -82,22 +103,27 @@ test_loader = DataLoader(test_dataset, batch_size=bs, shuffle=False)
 # Process each image in the test loader
 total_pixels = 0
 total_diff_pixels = 0
+from sklearn.metrics import precision_score, recall_score, f1_score
 
+# Initialize lists to store metrics for each class
+precision_per_class = []
+recall_per_class = []
+f1_per_class = []
+
+# Initialize arrays to accumulate true positives, false positives, and false negatives
+tp = np.zeros(n_classes, dtype=int)
+fp = np.zeros(n_classes, dtype=int)
+fn = np.zeros(n_classes, dtype=int)
 for images, masks in test_loader:
     for i in range(images.shape[0]):  # Iterate over the batch
         img = images[i].numpy().squeeze() * 255  # Convert image to grayscale
-        
         img = img.astype(np.uint8)
-        print("img shape")
-        print(img.shape)
         img = np.transpose(img, (1, 2, 0))  # Reorder to (height, width, channels)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        print(img.shape)
         output_tensor = np.zeros((n_classes, height, width), dtype=np.uint8)  # Reset output tensor
 
         for idx, (key, template_list) in enumerate(templates.items()):
             for template in template_list:
-                print(template.shape)
                 res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
                 loc = np.where(res >= thresholds[idx])
                 w, h = template.shape[::-1]
@@ -106,19 +132,29 @@ for images, masks in test_loader:
 
         # Compare the output tensor with the expected tensor
         expected_tensor = masks[i].numpy()
-        print(expected_tensor.shape)
-        diff = output_tensor - expected_tensor
-        num_diff_pixels = np.sum(diff != 0)
-        num_total_pixels = expected_tensor.size
 
-        total_diff_pixels += num_diff_pixels
-        total_pixels += num_total_pixels
+        for j in range(n_classes):
+            tp[j] += np.sum((output_tensor[j] == 1) & (expected_tensor[j] == 1))
+            fp[j] += np.sum((output_tensor[j] == 1) & (expected_tensor[j] == 0))
+            fn[j] += np.sum((output_tensor[j] == 0) & (expected_tensor[j] == 1))
 
-        print(f'Number of different pixels for image {i}: {num_diff_pixels}')
+# Calculate precision, recall, and F1 score for each class
+for j in range(n_classes):
+    precision = tp[j] / (tp[j] + fp[j]) if tp[j] + fp[j] > 0 else 0
+    recall = tp[j] / (tp[j] + fn[j]) if tp[j] + fn[j] > 0 else 0
+    f1 = 2 * (precision * recall) / (precision + recall) if precision + recall > 0 else 0
 
-# Calculate accuracy
-accuracy = 1 - (total_diff_pixels / total_pixels)
-print(f'Overall accuracy: {accuracy * 100:.2f}%')
+    precision_per_class.append(precision)
+    recall_per_class.append(recall)
+    f1_per_class.append(f1)
 
-# Optional: Visualize the result for one of the layers (e.g., platform layer)
-cv2.imwrite('platform_layer.png', output_tensor[1] * 255)
+    print(f'Class {j}: Precision: {precision:.4f}, Recall: {recall:.4f}, F1 Score: {f1:.4f}')
+
+# Optional: Calculate overall metrics (macro-average)
+overall_precision = np.mean(precision_per_class)
+overall_recall = np.mean(recall_per_class)
+overall_f1 = np.mean(f1_per_class)
+
+print(f'Overall Precision: {overall_precision:.4f}')
+print(f'Overall Recall: {overall_recall:.4f}')
+print(f'Overall F1 Score: {overall_f1:.4f}')

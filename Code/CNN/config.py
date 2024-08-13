@@ -3,7 +3,7 @@ import numpy as np
 # Values we want to keep constant throughout the project
 
 
-imshape_ = (3, 120, 160)
+imshape_ = (3, 270, 480)
             # Class names:      # Class color  # Channel Number in target matrix
 class_colors_ = {'platform':     (000,000,187), # 0
                'spike':          (127,000,000), # 1
