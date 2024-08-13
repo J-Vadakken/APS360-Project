@@ -16,16 +16,16 @@ height = 120
 width = 160
 bs = 32
 
-# Load templates for each class
+# Load multiple templates for each class
 templates = {
-    'platform': cv2.imread('../Sample_Data/platform.png', cv2.IMREAD_GRAYSCALE),
-    'spike': cv2.imread('../Sample_Data/spike.png', cv2.IMREAD_GRAYSCALE),
-    'player': cv2.imread('../Sample_Data/player.png', cv2.IMREAD_GRAYSCALE),
-    'yellow_jump_orb': cv2.imread('../Sample_Data/yellow_jump_orb.png', cv2.IMREAD_GRAYSCALE),
-    'blue_jump_orb': cv2.imread('../Sample_Data/blue_jump_orb.png', cv2.IMREAD_GRAYSCALE),
-    'blue_pad': cv2.imread('../Sample_Data/blue_pad.png', cv2.IMREAD_GRAYSCALE),
-    'yellow_pad': cv2.imread('../Sample_Data/yellow_pad.png', cv2.IMREAD_GRAYSCALE),
-    'portal': cv2.imread('../Sample_Data/portal.png', cv2.IMREAD_GRAYSCALE)
+    'platform': [cv2.imread(f'baseline_model/Objects/1_platform/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 4)],
+    'spike': [cv2.imread(f'baseline_model/Objects/2_spike/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 3)],
+    'player': [cv2.imread(f'baseline_model/Objects/player_{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 3)],
+    'yellow_jump_orb': [cv2.imread(f'baseline_model/Objects/yellow_jump_orb_{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 3)],
+    'blue_jump_orb': [cv2.imread(f'baseline_model/Objects/blue_jump_orb_{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 3)],
+    'blue_pad': [cv2.imread(f'baseline_model/Objects/blue_pad_{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 3)],
+    'yellow_pad': [cv2.imread(f'baseline_model/Objects/yellow_pad_{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 3)],
+    'portal': [cv2.imread(f'baseline_model/Objects/portal_{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 3)]
 }
 
 # Define a uniform threshold for all classes
@@ -69,13 +69,14 @@ for images, masks in test_loader:
 
         output_tensor = np.zeros((n_classes, height, width), dtype=np.uint8)  # Reset output tensor
 
-        for idx, (key, template) in enumerate(templates.items()):
-            res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
-            loc = np.where(res >= thresholds[idx])
-            w, h = template.shape[::-1]
+        for idx, (key, template_list) in enumerate(templates.items()):
+            for template in template_list:
+                res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
+                loc = np.where(res >= thresholds[idx])
+                w, h = template.shape[::-1]
 
-            for pt in zip(*loc[::-1]):
-                output_tensor[idx, pt[1]:pt[1] + h, pt[0]:pt[0] + w] = 1
+                for pt in zip(*loc[::-1]):
+                    output_tensor[idx, pt[1]:pt[1] + h, pt[0]:pt[0] + w] = 1
 
         # Compare the output tensor with the expected tensor
         expected_tensor = masks[i].numpy()
