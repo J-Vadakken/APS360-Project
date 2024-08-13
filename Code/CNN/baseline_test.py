@@ -11,23 +11,25 @@ from torch.utils.data import DataLoader, random_split, Dataset
 from PIL import Image
 
 # Define the number of classes and initialize the output tensor dimensions
-n_classes = 8
+n_classes = 10
 height = 120
 width = 160
 bs = 32
 
 # Load multiple templates for each class
 templates = {
-    'platform': [cv2.imread(f'baseline_model/Objects/1_platform/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 4)],
-    'spike': [cv2.imread(f'baseline_model/Objects/2_spike/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 3)],
-    'player': [cv2.imread(f'baseline_model/Objects/player_{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 3)],
-    'yellow_jump_orb': [cv2.imread(f'baseline_model/Objects/yellow_jump_orb_{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 3)],
-    'blue_jump_orb': [cv2.imread(f'baseline_model/Objects/blue_jump_orb_{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 3)],
-    'blue_pad': [cv2.imread(f'baseline_model/Objects/blue_pad_{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 3)],
-    'yellow_pad': [cv2.imread(f'baseline_model/Objects/yellow_pad_{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 3)],
-    'portal': [cv2.imread(f'baseline_model/Objects/portal_{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 3)]
+    '0': [cv2.imread(f'baseline_model/Objects/0/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(11)],
+    '1': [cv2.imread(f'baseline_model/Objects/1/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(11)],
+    #'2': [cv2.imread(f'baseline_model/Objects/2/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 4)],
+    '3': [cv2.imread(f'baseline_model/Objects/3/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 2)],
+    '4': [cv2.imread(f'baseline_model/Objects/4/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(3, 4)],
+    '5': [cv2.imread(f'baseline_model/Objects/5/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(6, 7)],
+    '6': [cv2.imread(f'baseline_model/Objects/6/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(4, 5)],
+    '7': [cv2.imread(f'baseline_model/Objects/7/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(2, 3)],
+    '8': [cv2.imread(f'baseline_model/Objects/8/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(5, 6)],
+    '9': [cv2.imread(f'baseline_model/Objects/9/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 6)],
 }
-
+print(templates['0'][0].shape)
 # Define a uniform threshold for all classes
 thresholds = [0.7] * n_classes
 
@@ -65,21 +67,28 @@ total_diff_pixels = 0
 for images, masks in test_loader:
     for i in range(images.shape[0]):  # Iterate over the batch
         img = images[i].numpy().squeeze() * 255  # Convert image to grayscale
+        
         img = img.astype(np.uint8)
-
+        # make img greyscale
+        print("img shape")
+        print(img.shape)
+        img = np.transpose(img, (1, 2, 0))  # Reorder to (height, width, channels)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        print(img.shape)
         output_tensor = np.zeros((n_classes, height, width), dtype=np.uint8)  # Reset output tensor
 
         for idx, (key, template_list) in enumerate(templates.items()):
             for template in template_list:
+                print(template.shape)
                 res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
                 loc = np.where(res >= thresholds[idx])
                 w, h = template.shape[::-1]
-
                 for pt in zip(*loc[::-1]):
                     output_tensor[idx, pt[1]:pt[1] + h, pt[0]:pt[0] + w] = 1
 
         # Compare the output tensor with the expected tensor
         expected_tensor = masks[i].numpy()
+        print(expected_tensor.shape)
         diff = output_tensor - expected_tensor
         num_diff_pixels = np.sum(diff != 0)
         num_total_pixels = expected_tensor.size
@@ -94,4 +103,4 @@ accuracy = 1 - (total_diff_pixels / total_pixels)
 print(f'Overall accuracy: {accuracy * 100:.2f}%')
 
 # Optional: Visualize the result for one of the layers (e.g., platform layer)
-cv2.imwrite('platform_layer.png', output_tensor[0] * 255)
+cv2.imwrite('platform_layer.png', output_tensor[1] * 255)
