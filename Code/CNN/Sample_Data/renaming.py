@@ -10,5 +10,5 @@ def rename_files(folder_path):
     for i, file in enumerate(files):
         os.rename(os.path.join(folder_path, file), os.path.join(folder_path, str(i+1) + '.png'))
 
-rename_files('polargeist_normal')
-rename_files('polargeist_hitbox')
+rename_files('training_validation_data/00_Stereo_Madness/00_Stereo_Madness_Normal')
+rename_files('training_validation_data/00_Stereo_Madness/00_Stereo_Madness_Hitbox')

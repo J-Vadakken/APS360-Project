@@ -1,3 +1,4 @@
+import os
 import cv2 
 import numpy as np
 import torch
@@ -30,6 +31,7 @@ templates = {
     '9': [cv2.imread(f'baseline_model/Objects/9/{i}.png', cv2.IMREAD_GRAYSCALE) for i in range(1, 6)],
 }
 print(templates['0'][0].shape)
+
 # Define a uniform threshold for all classes
 thresholds = [0.7] * n_classes
 
@@ -39,18 +41,35 @@ transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-# Define paths for images and annotations
-image_path_dir = 'Sample_Data/polargeist/polargeist_normal'
-annot_path_dir = 'Sample_Data/polargeist/polargeist_hitbox'
-image_paths = []
-annot_paths = []
-for i in range(1, 511):
-    image_paths.append(image_path_dir + '/' + str(i) + '.png')
-    annot_paths.append(annot_path_dir + '/' + str(i) + '.png')
+# Initialize lists to hold all image and annotation paths
+all_image_paths = []
+all_annot_paths = []
+
+# Define the root directory
+root_dir = 'Sample_Data/training_validation_data'
+
+# Loop through each directory in the root directory
+for subdir in os.listdir(root_dir):
+    subdir_path = os.path.join(root_dir, subdir)
+    
+    if os.path.isdir(subdir_path):
+        # Define paths for images and annotations for each level
+        image_path_dir = os.path.join(subdir_path, f'{subdir}_Normal')
+        annot_path_dir = os.path.join(subdir_path, f'{subdir}_Hitbox')
+
+        # Ensure the directories exist
+        if os.path.exists(image_path_dir) and os.path.exists(annot_path_dir):
+            # List the files in each directory and append to the overall list
+            image_paths = [os.path.join(image_path_dir, f) for f in os.listdir(image_path_dir) if f.endswith('.png')]
+            annot_paths = [os.path.join(annot_path_dir, f) for f in os.listdir(annot_path_dir) if f.endswith('.png')]
+            
+            # Extend the overall lists with these paths
+            all_image_paths.extend(image_paths)
+            all_annot_paths.extend(annot_paths)
 
 # Create dataset and split into train, validation, and test sets
-dataset = CustomDataset(image_paths=image_paths,
-                        annot_paths=annot_paths,
+dataset = CustomDataset(image_paths=all_image_paths,
+                        annot_paths=all_annot_paths,
                         transform=transform)
 
 train_size = int(0.7 * len(dataset))
@@ -69,7 +88,6 @@ for images, masks in test_loader:
         img = images[i].numpy().squeeze() * 255  # Convert image to grayscale
         
         img = img.astype(np.uint8)
-        # make img greyscale
         print("img shape")
         print(img.shape)
         img = np.transpose(img, (1, 2, 0))  # Reorder to (height, width, channels)
