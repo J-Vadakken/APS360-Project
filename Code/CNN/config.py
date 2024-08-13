@@ -21,4 +21,4 @@ class_colors_ = {'platform':     (000,000,187), # 0
 labels_ = class_colors_.keys()
 n_classes_ = len(class_colors_) + 1 # +1 for background class
 
-batch_size_ = 32  
+batch_size_ = 32    
