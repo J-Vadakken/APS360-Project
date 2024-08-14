@@ -9,33 +9,34 @@
 %\newcommand{\apsname}{Final Report}
 
 %######## APS360: Put your Group Number here
-\newcommand{\gpnumber}{7}
+\newcommand{\gpnumber}{35}
 
 \usepackage{hyperref}
 \usepackage{url}
 \usepackage{graphicx}
+\usepackage{float} % Add this line in your preamble
 
 %######## APS360: Put your project Title here
-\title{Formatting Instructions for APS360 Project  \\ 
-based on ICLR Conference Format}
+\title{Creating a Player Aid for Geometry Dash  \\ 
+APS360 Progress Report}
 
 
 %######## APS360: Put your names, student IDs and Emails here
-\author{Author One  \\
-Student\# 1005678901\\
-\texttt{author1@mail.utoronto.ca} \\
+\author{Ian Lu  \\
+Student\# 1009972139 \\
+\texttt{i.lu@mail.utoronto.ca}  \\
 \And
-Author Two  \\
-Student\# 1005678901 \\
-\texttt{author2@mail.utoronto.ca} \\
+Jaden Dai \\
+Student\# 1009972228\\
+\texttt{jaden.dai@mail.utoronto.ca} \\
 \AND
-Author Three  \\
-Student\# 1005678901 \\
-\texttt{author3@mail.utoronto.ca} \\
+Joel Vadakken  \\
+Student\# 10010089798\\
+\texttt{j.vadakken@mail.utoronto.ca} \\
 \And
-Author Four \\
-Student\# 1005678901 \\
-\texttt{author4@mail.utoronto.ca} \\
+Skyler Han  \\
+Student\# 1009794830 \\
+\texttt{hs.han@mail.utoronto.ca} \\
 \AND
 }
 
@@ -58,20 +59,55 @@ Student\# 1005678901 \\
 \maketitle
 
 \begin{abstract}
-This template should be used for all your project related reports in APS360 course. -- Write an abstract for your project here. Please review the \textbf{ First Course Tutorial} for a quick start
+Our group intends to create a program that can create semantic segmentation
+maps of a Geometry Dash Level using machine learning. This program can be
+used to assist players in recognizing obstacles without the usage of mods.
+We are using a U-net architecture to achieve this task.
 %######## APS360: Do not change the next line. This shows your Main body page count.
 ----Total Pages: \pageref{last_page}
 \end{abstract}
 
 
+\section{Introduction}
 
-\section{Project Document Submission for APS360 Course}
+
+The goal of our project is to develop a model that takes a screenshot from the game “Geometry Dash” and detects the location of collision boxes automatically. For example, given a live screenshot of the game, it should be able to recognize objects and determine their appropriate collision box:
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Figs/input_output.png}
+\end{center}
+\caption{Example of our ideal input and output for the model.}
+\label{fig:input output}
+\end{figure}
 
 
-The format for the submissions is a variant of the ICLR 2022 format.
-Please read carefully the instructions below, and follow them
-faithfully. There is a \textbf{9 page} limit for the main text. References do not have any limitation. This is also ICLR's standard length for a paper submission. 
-If your main text goes to page 10, a $-20\%$ penalty would be applied. If your main text goes to page 11, you will not receive any grade for your submission. 
+Above is an example of our desired output for a given screenshot input. Note that Geometry Dash collision boxes are somewhat strangely-shaped, especially for spike objects.
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Figs/confusion.png}
+\end{center}
+\caption{An example of a level where a mechanism might get confused labelling objects.}
+\label{fig:Confusion_example}
+\end{figure}
+
+
+We believe this project is appropriate for deep learning due to the many complexities and edge cases that may appear. For instance, there are many decorative objects that a player can recognize as irrelevant, but may trick a traditional hard-coded or image matching algorithm.
+
+
+%\begin{figure}[!h]
+%\begin{center}
+%\includegraphics[width=0.6\textwidth]{Figs/example_confusing_image1.png}
+%\end{center}
+%\caption{An example of a level where a mechanism might get confused labelling objects.}
+%\label{fig:Confusion_example}
+%\end{figure}
+ 
+Here, a player can tell the squares are part of the background, while a hardcoded model may mistake it for a foreground object.
+
+We believe this model could be a useful tool for players, who may not have access to other paid tools to view collision boxes. Furthermore, this may be a useful model for future work in training a RL model to play Geometry Dash by simplifying inputted information.
+
 
 \subsection{Style}
 

@@ -109,7 +109,6 @@ class CustomDataset(Dataset):
             channels.append(mask)
 
         # Add background mask to channels
-        channels.append(background_mask)
         # Stack all channels to create multi-channel mask
         y = np.stack(channels, axis=0)
         return torch.tensor(y, dtype=torch.float32)
