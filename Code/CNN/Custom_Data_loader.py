@@ -100,7 +100,7 @@ class CustomDataset(Dataset):
         for label, color in class_colors_.items():
             # Find pixels that math the color
             color = np.array(color, dtype=anot_im.dtype)
-            tolerance = 1
+            tolerance = 100
             mask = np.all(np.abs(anot_im - color) <= tolerance, axis=-1)
             # Remove background pixels at the same location
             background_mask[mask] = 0
@@ -114,6 +114,8 @@ class CustomDataset(Dataset):
         return torch.tensor(y, dtype=torch.float32)
 
     def plot_multi_mask(masks):
+        masks = masks.detach().cpu().numpy()
+        print("TESTING: ", n_classes_, masks.shape)
         plt.figure(figsize=(n_classes_*2.5, 2))
         i = 1 # Iterable for subplot
         # To plot a combined color image later
@@ -131,12 +133,12 @@ class CustomDataset(Dataset):
             i += 1
         
         # Adjust subplot for the background mask
-        plt.subplot(1, n_classes_ + 1, i)
-        plt.imshow(masks[-1], cmap='gray')
-        plt.title('Background')
+        # plt.subplot(1, n_classes_ + 1, i)
+        # plt.imshow(masks[-1], cmap='gray')
+        # plt.title('Background')
         
         # Adjust subplot for the combined color image
-        plt.subplot(1, n_classes_ + 1, i+1)
+        plt.subplot(1, n_classes_ + 1, i)
         plt.imshow(combined_color_image)
         plt.title('Combined Color Image')
         
@@ -150,16 +152,16 @@ class CustomDataset(Dataset):
 if __name__ == "__main__":
     # Example usage
     transform = transforms.Compose([
-        transforms.Resize((120, 160)),
+        # transforms.Resize((120, 160)),
         transforms.ToTensor(),
     ])
 
-    dataset = CustomDataset(image_paths=['Code/CNN/Sample_Data/polargeist/polargeist normal/2024 Jul 02 22-08-07241.png', 
+    dataset = CustomDataset(image_paths=['Code/CNN/Sample_Data/training_validation_data/11_TOE/11_TOE_Normal/2024 Aug 07 22-53-41634.png', 
                                          'Code/CNN/Sample_Data/polargeist/polargeist normal/2024 Jul 02 22-08-08242.png'],
-                            annot_paths=['Code/CNN/Sample_Data/polargeist/polargeist hitbox/2024 Jul 02 21-44-574.png',
+                            annot_paths=['Code/CNN/Sample_Data/training_validation_data/11_TOE/11_TOE_Hitbox/2024 Aug 07 22-53-41634.png',
                                          'Code/CNN/Sample_Data/polargeist/polargeist hitbox/2024 Jul 02 21-44-585.png'],
                             transform=transform)
-    a_img = Image.open('Code/CNN/Sample_Data/polargeist/polargeist hitbox/2024 Jul 02 21-44-574.png').convert("RGB")
+    a_img = Image.open('Code/CNN/Sample_Data/training_validation_data/11_TOE/11_TOE_Hitbox/2024 Aug 07 20-06-15917.png').convert("RGB")
     to_tensor_transform = transforms.ToTensor()
     a_img = to_tensor_transform(a_img) * 255.0
     f = dataset.create_multi_masks(a_img)
