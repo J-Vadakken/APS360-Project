@@ -6,6 +6,10 @@ from PIL import Image
 from config import n_classes_, class_colors_, imshape_
 import matplotlib.pyplot as plt
 
+# Heavily adapted, but inspired by https://github.com/seth814/Semantic-Shapes
+# His code used tensorflow, so it had to be heavily adapted to use pytorch instead
+
+
 class CustomDataset(Dataset):
     """
     Custom dataset class for loading images and annotations together.
