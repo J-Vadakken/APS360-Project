@@ -59,10 +59,11 @@ Student\# 1009794830 \\
 \maketitle
 
 \begin{abstract}
-Our group intends to create a program that can create semantic segmentation
-maps of a Geometry Dash Level using machine learning. This program can be
-used to assist players in recognizing obstacles without the usage of mods.
-We are using a U-net architecture to achieve this task.
+In this report, our group outlines the process used to create a model, 
+and assess its performance, to identify obstacles in Robtop’s platformer 
+video game, Geometry Dash. By taking a screenshot of the game, our model 
+creates a semantic segmentation map of 7 classes of elements present on 
+the screen, including the player, spikes, and platforms. 
 %######## APS360: Do not change the next line. This shows your Main body page count.
 ----Total Pages: \pageref{last_page}
 \end{abstract}
@@ -70,52 +71,83 @@ We are using a U-net architecture to achieve this task.
 
 \section{Introduction}
 
+We created a model that could take a screenshot from Geometry Dash and detect the locations of various elements in the game. Geometry Dash is a one-button platformer video game created by Robtop where a player controls an icon to avoid obstacles and collisions as they progress through a map. The goal of our project was to create a model that can detect the location of elements such as these obstacles. For example, our model should be able to take a screenshot such as in Fig. \ref{fig:input output} on the left, and generate the image on the right, identifying the collision boxes of the spikes, the collision boxes of the platform, the location of the orb, the location of the player, and the background.
 
-The goal of our project is to develop a model that takes a screenshot from the game “Geometry Dash” and detects the location of collision boxes automatically. For example, given a live screenshot of the game, it should be able to recognize objects and determine their appropriate collision box:
+
 
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{Figs/input_output.png}
 \end{center}
-\caption{Example of our ideal input and output for the model.}
-\label{fig:input output}
+\caption{On the left is a sample screenshot that our model should be able to take in as input. The image on the right is an example of what the output of our model should look like, and the table contains the classes that the image was broken up into.Note that Geometry Dash collision boxes are strangely shaped for some elements such as the spike objects.}
+\label{fig:input_output}
 \end{figure}
 
 
-Above is an example of our desired output for a given screenshot input. Note that Geometry Dash collision boxes are somewhat strangely-shaped, especially for spike objects.
+
+We believe that machine learning is an appropriate approach for this task due to the difficulties that can arise in identifying game elements when complex situations arise. For example, decorative objects can easily be recognized by a player as irrelevant but may trick an image-matching or hard-coded algorithm. Essentially, the obstacles in a game are always positioned in such a way that a player has a way forward, so part of being able to identify these game objects would be to understand what makes sense in the context of the game. An example is provided in Fig \ref{fig:Confusion_example_red}. 
+
+We believe this project is appropriate for deep learning due to the many complexities and edge cases that may appear. For instance, there are many decorative objects that a player can recognize as irrelevant but may trick a traditional hard-coded or image-matching algorithm.
 
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=0.6\textwidth]{Figs/confusion.png}
+\includegraphics[width=0.6\textwidth]{Figs/confusion_image_red.png}
 \end{center}
-\caption{An example of a level where a mechanism might get confused labelling objects.}
-\label{fig:Confusion_example}
+\caption{A training sample image from the level “Death Moon”, this is an example of a screenshot traditional algorithms might have a hard time labelling. Note that the black saw blades may damage the player, while the red arrows, white chains, and black squares are decorative. However, to identify this, an algorithm would have to recognize that if the red triangles or black squares were not background objects, the player would have no way to proceed in this level.}
+\label{fig:Confusion_example_red}
 \end{figure}
 
 
-We believe this project is appropriate for deep learning due to the many complexities and edge cases that may appear. For instance, there are many decorative objects that a player can recognize as irrelevant, but may trick a traditional hard-coded or image matching algorithm.
+This model can be a useful tool for players who are unable to access other paid tools to view collision boxes. Geometry Dash has a large community and player base, and many of the custom-made levels are very tough. Many players download mods to display hitboxes as they go through these levels so that they can improve their runs through practice. Our model can provide this service for free. Furthermore, this may be a useful model for future work in training an RL model to play Geometry Dash by simplifying inputted information.
 
 
-%\begin{figure}[!h]
-%\begin{center}
-%\includegraphics[width=0.6\textwidth]{Figs/example_confusing_image1.png}
-%\end{center}
-%\caption{An example of a level where a mechanism might get confused labelling objects.}
-%\label{fig:Confusion_example}
-%\end{figure}
- 
-Here, a player can tell the squares are part of the background, while a hardcoded model may mistake it for a foreground object.
-
-We believe this model could be a useful tool for players, who may not have access to other paid tools to view collision boxes. Furthermore, this may be a useful model for future work in training a RL model to play Geometry Dash by simplifying inputted information.
+\section{Background and Related Works}
 
 
-\subsection{Style}
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Figs/CodeNoodlesScreenshot.png}
+\end{center}
+\caption{A screenshot of CodeNoodle's visualization of his neural network
+from his Youtube video where he creates a bot to play Geometry Dash 
+\citep{AI+Learns+to+Play+GD}.}
+\label{fig:Code_Noodles}
+\end{figure}
 
-Papers to be submitted to APS360 must be prepared according to the
-instructions presented here.
+\cite{AI+Learns+to+Play+GD} created a simple Neural Network that could play a simplified version of Geometry Dash. His bot took in input information, such as the distance to the next block and the location of spikes, and outputted an action. See Fig \ref{fig:Code_Noodles}.
+However, since CodeNoodles created a simplified version of Geometry Dash that could readily supply his bot with the needed information, his bot would not work on the actual game itself as the version of Geometry Dash that he made simplified the process of creating a bot immensely. For example, his bot did not have to worry about any image-processing. Our model, on the other hand, is solely concerned with this image processing, and as a result, there is exciting potential in connecting the output of our model to the input of CodeNoodles’ bot to create a bot that can play on the official version of Geometry Dash.
 
-Authors are required to use the APS360 \LaTeX{} style files obtainable at the
-APS360 website on Quercus. Tweaking the style is not permitted.
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Figs/Semantic_Mario.png}
+\end{center}
+\caption{This picture is from an article that proved preprocessing images with semantic segmentation can help improve model performance, suggesting that our project has potential for use in a Geometry Dash bot in the future.
+\citep{Semantic+Segmentation+Mario}}
+\label{fig:Semantic_Mario}
+\end{figure}
+
+\cite{Semantic+Segmentation+Mario} researched the efficacy of using semantic segmentation to preprocess the inputs to a RL model learning to play Super Mario. They found that this reduced the training time and improved the performance of their model. This report provides justification that creating these semantic segmentation maps of the screenshots from Geometry Dash can help train RL models in the future. See Fig \ref{fig:Semantic_Mario}
+
+
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{Figs/semantic_segmentation_code.png}
+\end{center}
+\caption{A screenshot of one of the video tutorials by Seth Adams outlining how to create a semantic segmentation map.\citep{Semantic+Segmentation+Code}}
+\label{fig:semantic_segmentation_code}
+\end{figure}
+
+\cite{Semantic+Segmentation+Code} created a youtube tutorial on how to create semantic segmentation maps using tensorflow, and uploaded his code to GitHub. Since this was exactly what we needed for label creation and data-preprocessing, we carefully went through his work. Since our code needed to use pytorch as opposed to tenserflow, we had to heavily modify his code, but nonetheless, our work is built off of his. His code allowed us to create the labels and dataloader functions that we needed. A screenshot of one of his tutorials can be seen in Fig \ref{fig:semantic_segmentation_code}.
+
+\cite{unet2024} outlines an architecture that was used to build a model that could make semantic segmentations on biomedical images. It was called UNET and it solved a problem similar to ours. As a result, our model uses a similar architecture.
+
+\cite{DeepMind+Sima} at Deepmind created a model, called SIMA, 
+that can take visual observations from a game to carry out an 
+instruction by outputting keyboard events. Although their model does not achieve the same end goal as us (following instruction vs autonomous gameplay), their agent’s ability to understand complex visual information and map it to keyboard inputs supports our approach of utilizing screen capture for object detection and behavior planning.
+
+
 
 \subsection{Retrieval of style files}
 
